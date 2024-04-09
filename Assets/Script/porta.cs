@@ -1,18 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class porta : MonoBehaviour
+public class Porta : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator anim;
+    public bool interagir;
+    public bool trancada = true;
+    public string textoChaveIncorreta = "Você precisa da chave correta para abrir esta porta.";
+
+    private void Start()
     {
-        
+        anim.SetBool("fechada", false);
+        anim.SetBool("aberta", false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ToggleInteracao()
     {
-        
+        if (trancada == false)
+        {
+            interagir = !interagir;
+            if (interagir == true)
+            {
+                anim.SetBool("fechada", false);
+                anim.SetBool("aberta", true);
+
+            }
+            else
+            {
+                anim.SetBool("fechada", true);
+                anim.SetBool("aberta", false);
+            }
+        }
+        else
+        {
+            GameController.instance.ShowInformacao(textoChaveIncorreta);
+        }
+    }
+
+    public void DestrancarPortaRecepcao()
+    {
+        if (Inventario.temChaveRecepcao)
+        {
+            GameController.instance.ShowInformacao("Destrancou");
+            trancada = !trancada;
+        }
+        else
+        {
+            GameController.instance.ShowInformacao("Precisa de chave recepcao");
+        }
     }
 }
+

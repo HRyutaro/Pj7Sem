@@ -1,41 +1,151 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody rb;
-    public float speed = 10;
-    public float rotation = 90;
+    CharacterController controller;
+    Vector3 forward;
+    Vector3 strafe;
+    Vector3 vertical;
+
+    public static bool comItem;
+
+    [Header("MoviConf")]
+    public float forwardSpeed = 5f;
+    public float atualforwardSpeed;
+    public float strafeSpeed = 3f;
+    public float atualstrafeSpeed;
+    public static bool parado;
+    bool agachado;
+    bool isRunnig;
+
+    [Header("LanternConf")]
+    public GameObject lanternaObjeto;
+    public Light lanterna;
+    public float bateriaMax;
+    public static float bateriaAtual;
+    public Slider imagemBateria;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        atualforwardSpeed = forwardSpeed;
+        atualstrafeSpeed = strafeSpeed;
+        bateriaAtual = bateriaMax;
     }
 
-    private void FixedUpdate()
+
+    void Update()
     {
-        Move();
+        if (parado == false)
+        {
+            Move();
+            //Agachar();
+            Lanterna();
+        }
     }
 
     void Move()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float forwardInput = Input.GetAxisRaw("Vertical");
+        float strafeInput = Input.GetAxisRaw("Horizontal");
 
-        transform.Rotate(Vector3.up * horizontalInput * rotation * Time.deltaTime);
+        forward = forwardInput * atualforwardSpeed * transform.forward;
+        strafe = strafeInput * atualstrafeSpeed * transform.right;
 
-        // Direção de movimento do personagem baseada na rotação atual
-        Vector3 moveDirection = transform.forward * verticalInput;
-
-        if (Input.GetButton("Fire3")) // correr
+        if (controller.isGrounded)
         {
-            rb.velocity = moveDirection * (speed * 2);
-            Debug.Log("correndo");
+            vertical = Vector3.down;
+        }
+
+        Vector3 finalVelocity = forward + strafe + vertical;
+
+        finalVelocity.Normalize();
+
+        controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.LeftShift) && agachado == false)
+        {
+            atualforwardSpeed = 2 * forwardSpeed;
+            atualstrafeSpeed = 2 * strafeSpeed;
+            isRunnig = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && agachado == false)
+        {
+            atualforwardSpeed = forwardSpeed;
+            atualstrafeSpeed = strafeSpeed;
+            isRunnig = false;
+        }
+
+    }
+    void Lanterna()
+    {
+        // Verifica se a lanterna está ligada
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ToggleLanterna();
+
+        }
+
+        // Verifica se a lanterna está ligada e a bateria não está vazia
+        if (lanterna.enabled && bateriaAtual > 0)
+        {
+            // Reduz a bateria com o tempo (ajuste o valor como desejado)
+            if (parado == false)
+            {
+                bateriaAtual -= Time.deltaTime;
+            }
+
+            // Atualiza a intensidade da luz com base na carga da bateria
+
+            if (bateriaAtual >= 7.5f)
+            {
+                lanterna.intensity = 2;
+            }
+            else if (bateriaAtual <= 7.5f)
+            {
+                lanterna.intensity = 1;
+            }
         }
         else
         {
-            rb.velocity = moveDirection * speed;
+            // Desliga a lanterna quando a bateria estiver vazia
+            lanterna.enabled = false;
+            lanternaObjeto.SetActive(false);
+        }
+
+        imagemBateria.value = bateriaAtual;
+    }
+
+    void ToggleLanterna()
+    {
+        // Liga ou desliga a lanterna
+        lanterna.enabled = !lanterna.enabled;
+        if (lanterna.enabled == true)
+        {
+            lanternaObjeto.SetActive(true);
+        }
+        else
+        {
+            lanternaObjeto.SetActive(false);
+        }
+    }
+
+
+    void Agachar()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            agachado = true;
+            atualforwardSpeed = 2.5f;
+            atualstrafeSpeed = 2.5f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            agachado = false;
+            atualforwardSpeed = forwardSpeed;
+            atualstrafeSpeed = strafeSpeed;
         }
     }
 }
