@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public float atualstrafeSpeed;
     public static bool parado;
     bool agachado;
-    bool isRunnig;
+    public bool isRunnig;
 
     [Header("LanternConf")]
     public GameObject lanternaObjeto;
@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
             Lanterna();
         }
     }
-
     void Move()
     {
         float forwardInput = Input.GetAxisRaw("Vertical");
@@ -101,11 +100,11 @@ public class Player : MonoBehaviour
 
             if (bateriaAtual >= 7.5f)
             {
-                lanterna.intensity = 2;
+                lanterna.intensity = 0.7f;
             }
             else if (bateriaAtual <= 7.5f)
             {
-                lanterna.intensity = 1;
+                lanterna.intensity = 0.35f;
             }
         }
         else

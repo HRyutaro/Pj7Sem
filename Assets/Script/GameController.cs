@@ -12,6 +12,17 @@ public class GameController : MonoBehaviour
     public GameObject pauseScreen;
     public Text textInfo;
 
+    public CamConfig cam;
+    public GameObject luz;
+
+    public GameObject opcoesScreen;
+    public GameObject buttonOpcoes;
+    public GameObject buttonSair;
+
+    public Slider sensibilityButtonX;
+    public Slider sensibilityButtonY;
+    public Slider brilobutton;
+
     public float tempoShowInfo = 3;
     void Start()
     {
@@ -20,6 +31,9 @@ public class GameController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         textInfo.enabled = false;
+
+        sensibilityButtonX.value = cam.sensitivityX;
+        sensibilityButtonY.value = cam.sensitivityY;
     }
 
     // Update is called once per frame
@@ -33,7 +47,6 @@ public class GameController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             isPause = !isPause;
-            
         }
         if(isPause == true)
         {
@@ -63,5 +76,28 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(tempoShowInfo);
         textInfo.enabled = false;
         textInfo.text = "";
+    }
+    public void Showopcoes()
+    {
+        opcoesScreen.SetActive(true);
+        buttonOpcoes.SetActive(false);
+        buttonSair.SetActive(false);
+    }
+    public void opcoesConfig()
+    {
+        cam.sensitivityX = sensibilityButtonX.value;
+        cam.sensitivityY = sensibilityButtonY.value;
+    }
+    public void voltarOpcoes()
+    {
+        opcoesScreen.SetActive(false);
+        buttonOpcoes.SetActive(true);
+        buttonSair.SetActive(true);
+    }
+
+    public void SairGame()
+    {
+        Debug.Log("Sair do Jogo");
+        Application.Quit();
     }
 }

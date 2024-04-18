@@ -24,7 +24,7 @@ public class Inventario : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && Player.parado == false)
         {
-            if (Baterias >= 1)
+            if (Baterias >= 1 && Player.bateriaAtual < 50)
             {
                 Player.bateriaAtual += 20;
                 Baterias -= 1;

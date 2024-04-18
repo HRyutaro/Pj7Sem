@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 689205499872269532}
   - component: {fileID: 689205499872269535}
   - component: {fileID: 689205499872269534}
+  - component: {fileID: 6464561757929222449}
   m_Layer: 0
   m_Name: 01_low
   m_TagString: Porta
@@ -300,3 +301,19 @@ MonoBehaviour:
   interagir: 0
   trancada: 0
   textoChaveIncorreta: "Voc\xEA precisa da chave correta para abrir esta porta."
+--- !u!208 &6464561757929222449
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6492502798925651253}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.054, y: 0.402, z: 0.96900004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.018000001, y: -0.39200002, z: 0.9760001}
+  m_TimeToStationary: 0.5

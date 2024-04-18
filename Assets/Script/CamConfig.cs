@@ -56,6 +56,7 @@ public class CamConfig : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+       
     }
     void ControleCam()
     {
@@ -141,5 +142,13 @@ public class CamConfig : MonoBehaviour
                 }
             }
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Vector3 direction = Vector3.forward;
+        Vector3 startOffset = transform.forward * offsetDistance;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + startOffset, transform.TransformDirection(direction * range));
     }
 }
