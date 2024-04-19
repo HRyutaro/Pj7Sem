@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
     public Slider sensibilityButtonY;
     public Slider brilobutton;
 
+    public Image ima;
+
     public float tempoShowInfo = 3;
     void Start()
     {
@@ -34,6 +36,7 @@ public class GameController : MonoBehaviour
 
         sensibilityButtonX.value = cam.sensitivityX;
         sensibilityButtonY.value = cam.sensitivityY;
+        brilobutton.value = 0.8f;
     }
 
     // Update is called once per frame
@@ -87,6 +90,7 @@ public class GameController : MonoBehaviour
     {
         cam.sensitivityX = sensibilityButtonX.value;
         cam.sensitivityY = sensibilityButtonY.value;
+        ima.color = new Color(0, 0, 0, brilobutton.value);
     }
     public void voltarOpcoes()
     {

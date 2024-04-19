@@ -15,6 +15,7 @@ public class Zombie : MonoBehaviour
     private float rangeOriginal;
 
     private List<RaycastHit> hitList = new List<RaycastHit>();
+    private List<RaycastHit> hitList2 = new List<RaycastHit>();
 
     public Player player;
 
@@ -32,14 +33,14 @@ public class Zombie : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 startOffset = gameObject.transform.forward * offsetDistance;
-        Vector3 startOffset2 = gameObject.transform.forward * offsetDistance;
+        Vector3 startOffset = transform.forward * offsetDistance;
+        Vector3 startOffset2 = -transform.forward * offsetDistance;
 
-        look(startOffset, transform.position); 
-        listenig(startOffset2, transform.position);
+        look(startOffset); 
+        listenig(startOffset2);
 
     }
-    void look(Vector3 startOffset, Vector3 objectPosition)
+    void look(Vector3 startOffset)
     {
         Gizmos.color = Color.red;
         float angleStep = rayAngle / (numberOfRays - 1);
@@ -79,13 +80,13 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    void listenig(Vector3 startOffset, Vector3 objectPosition)
+    void listenig(Vector3 startOffset)
     {
         Gizmos.color = Color.white;
         float angleStep = rayAngle / (numberOfRays - 1);
 
         // Clear the list of previous hits
-        hitList.Clear();
+        hitList2.Clear();
 
         for (int i = 0; i < numberOfRays; i++)
         {
@@ -104,12 +105,12 @@ public class Zombie : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, range))
             {
-                hitList.Add(hit);
+                hitList2.Add(hit);
             }
         }
 
         // Handle hits
-        foreach (RaycastHit hit in hitList)
+        foreach (RaycastHit hit in hitList2)
         {
             if (hit.collider.CompareTag("Player"))
             {

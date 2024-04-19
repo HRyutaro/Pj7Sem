@@ -45,7 +45,7 @@ public class Porta : MonoBehaviour
         }
         else
         {
-            GameController.instance.ShowInformacao("Precisa de chave recepcao");
+            GameController.instance.ShowInformacao(textoChaveIncorreta);
         }
     }
 }

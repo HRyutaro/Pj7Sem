@@ -140,4 +140,4 @@ MonoBehaviour:
   yOffset: 1.09
   offsetDistance: 0.1
   range: 20
-  player: {fileID: 6292306931047306715, guid: 49a6b7ecc0c3a2c4c844af7b7e1d34e6, type: 3}
+  player: {fileID: 5531604275666511902, guid: 49a6b7ecc0c3a2c4c844af7b7e1d34e6, type: 3}
