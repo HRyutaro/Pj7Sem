@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     public static float bateriaAtual;
     public Slider imagemBateria;
 
+    public Animator handsAnim;
+
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -69,12 +72,15 @@ public class Player : MonoBehaviour
             atualforwardSpeed = 2 * forwardSpeed;
             atualstrafeSpeed = 2 * strafeSpeed;
             isRunnig = true;
+
+            handsAnim.SetFloat("isRunnig", 1);
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift) && agachado == false)
         {
             atualforwardSpeed = forwardSpeed;
             atualstrafeSpeed = strafeSpeed;
             isRunnig = false;
+            handsAnim.SetFloat("isRunnig", 0);
         }
 
     }
@@ -130,7 +136,6 @@ public class Player : MonoBehaviour
             lanternaObjeto.SetActive(false);
         }
     }
-
 
     void Agachar()
     {

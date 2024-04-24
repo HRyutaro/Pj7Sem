@@ -41,7 +41,7 @@ public class CamConfig : MonoBehaviour
 
     void Update()
     {
-        if (GameController.instance.isPause == false)
+        if (GameController.instance.isPause == false && Inventario.invetarioOpen == false)
         {
             if (Player.parado == false)
             {
@@ -50,11 +50,6 @@ public class CamConfig : MonoBehaviour
             look();
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
         }
        
     }

@@ -36,22 +36,23 @@ public class GameController : MonoBehaviour
 
         sensibilityButtonX.value = cam.sensitivityX;
         sensibilityButtonY.value = cam.sensitivityY;
-        brilobutton.value = 0.8f;
+        brilobutton.value = 0.5f;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        Pause();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
     }
 
     void Pause()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            isPause = !isPause;
-        }
-        if(isPause == true)
+        isPause = !isPause;
+
+        if(isPause == true )
         {
             pauseScreen.SetActive(true);
             Time.timeScale = 0;
@@ -85,7 +86,6 @@ public class GameController : MonoBehaviour
         opcoesScreen.SetActive(true);
         buttonOpcoes.SetActive(false);
         buttonSair.SetActive(false);
-        buttonPaginas.SetActive(false);
     }
     public void opcoesConfig()
     {
@@ -98,7 +98,6 @@ public class GameController : MonoBehaviour
         opcoesScreen.SetActive(false);
         buttonOpcoes.SetActive(true);
         buttonSair.SetActive(true);
-        buttonPaginas.SetActive(true);
     }
 
     public void SairGame()

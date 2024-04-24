@@ -22,6 +22,9 @@ public class Inventario : MonoBehaviour
     public static bool temPag5;
     public static bool temPag6;
 
+    static public bool invetarioOpen = false;
+    public GameObject invetarioHud;
+
     void Start()
     {
         Baterias = 0;
@@ -37,7 +40,9 @@ public class Inventario : MonoBehaviour
     {
         UsarBateria();
         AttHudBateria();
+        AbrirInventario();
     }
+
     void UsarBateria()
     {
         if (Input.GetKeyDown(KeyCode.R) && Player.parado == false)
@@ -53,5 +58,25 @@ public class Inventario : MonoBehaviour
     {
         textoHud.text = Baterias.ToString();
     }
+    void AbrirInventario()
+    {
+        if(GameController.instance.isPause == false && Input.GetKeyDown(KeyCode.Tab))
+        {
+            invetarioOpen = !invetarioOpen;
+            Player.parado = !Player.parado;
 
+            if (invetarioOpen)
+            {
+                invetarioHud.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                invetarioHud.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+    }
 }
