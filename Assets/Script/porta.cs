@@ -3,9 +3,11 @@ using UnityEngine;
 public class Porta : MonoBehaviour
 {
     public Animator anim;
-    public bool interagir;
+    bool interagir;
     public bool trancada = true;
-    public string textoChaveIncorreta = "Você precisa da chave correta para abrir esta porta.";
+    public bool imperrada = false;
+    public GameObject chave;
+    public string textoChaveIncorreta = "Preciso da chave correta para abrir esta porta.";
 
     private void Start()
     {
@@ -15,19 +17,26 @@ public class Porta : MonoBehaviour
 
     public void ToggleInteracao()
     {
-        if (trancada == false)
+        if(imperrada== false)
         {
-            interagir = !interagir;
-            if (interagir == true)
+            if (trancada == false)
             {
-                anim.SetBool("fechada", false);
-                anim.SetBool("aberta", true);
+                interagir = !interagir;
+                if (interagir == true)
+                {
+                    anim.SetBool("fechada", false);
+                    anim.SetBool("aberta", true);
 
+                }
+                else
+                {
+                    anim.SetBool("fechada", true);
+                    anim.SetBool("aberta", false);
+                }
             }
-            else
+            else if(trancada == true)
             {
-                anim.SetBool("fechada", true);
-                anim.SetBool("aberta", false);
+                GameController.instance.ShowInformacao(textoChaveIncorreta);
             }
         }
         else
@@ -38,7 +47,7 @@ public class Porta : MonoBehaviour
 
     public void DestrancarPortaRecepcao()
     {
-        if (Inventario.temChaveRecepcao)
+        if (chave.activeSelf == false)
         {
             GameController.instance.ShowInformacao("Destrancou");
             trancada = !trancada;

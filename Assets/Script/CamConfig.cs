@@ -29,7 +29,7 @@ public class CamConfig : MonoBehaviour
     OutlineObject outlineObject;
     Porta porta;
     Chave chave;
-
+    PaginaItem pagitem;
     void Start()
     {
 
@@ -137,6 +137,16 @@ public class CamConfig : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         chave.toggle();
+                        outlineObject.Deselect();
+                    }
+                }
+                if (outlineObject.CompareTag("PagItem"))
+                {
+                    pagitem = hit.transform.GetComponent<PaginaItem>();
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        pagitem.toggle();
                         outlineObject.Deselect();
                     }
                 }

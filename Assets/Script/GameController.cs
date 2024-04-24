@@ -13,9 +13,9 @@ public class GameController : MonoBehaviour
     public Text textInfo;
 
     public CamConfig cam;
-    public GameObject luz;
 
     public GameObject opcoesScreen;
+    public GameObject buttonPaginas;
     public GameObject buttonOpcoes;
     public GameObject buttonSair;
 
@@ -85,6 +85,7 @@ public class GameController : MonoBehaviour
         opcoesScreen.SetActive(true);
         buttonOpcoes.SetActive(false);
         buttonSair.SetActive(false);
+        buttonPaginas.SetActive(false);
     }
     public void opcoesConfig()
     {
@@ -97,6 +98,7 @@ public class GameController : MonoBehaviour
         opcoesScreen.SetActive(false);
         buttonOpcoes.SetActive(true);
         buttonSair.SetActive(true);
+        buttonPaginas.SetActive(true);
     }
 
     public void SairGame()

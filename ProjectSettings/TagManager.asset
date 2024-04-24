@@ -8,6 +8,7 @@ TagManager:
   - Porta
   - Chave
   - Parede
+  - PagItem
   layers:
   - Default
   - TransparentFX
