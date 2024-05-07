@@ -30,6 +30,7 @@ public class CamConfig : MonoBehaviour
     Porta porta;
     Chave chave;
     PaginaItem pagitem;
+    Gaveta gaveta;
     void Start()
     {
 
@@ -143,6 +144,15 @@ public class CamConfig : MonoBehaviour
                     {
                         pagitem.toggle();
                         outlineObject.Deselect();
+                    }
+                }
+                if (outlineObject.CompareTag("Gaveta"))
+                {
+                    gaveta = hit.transform.GetComponent<Gaveta>();
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        gaveta.toggleGaveta();
                     }
                 }
             }

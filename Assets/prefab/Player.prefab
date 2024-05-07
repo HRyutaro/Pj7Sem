@@ -121,10 +121,12 @@ MonoBehaviour:
   strafeSpeed: 3
   atualstrafeSpeed: 0
   isRunnig: 0
+  stamina: 20
   lanternaObjeto: {fileID: 0}
   lanterna: {fileID: 0}
   bateriaMax: 50
   imagemBateria: {fileID: 0}
+  handsAnim: {fileID: 0}
 --- !u!114 &5531604275666511872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +140,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textoHud: {fileID: 0}
+  invetarioHud: {fileID: 0}

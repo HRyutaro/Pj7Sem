@@ -9,6 +9,7 @@ TagManager:
   - Chave
   - Parede
   - PagItem
+  - Gaveta
   layers:
   - Default
   - TransparentFX

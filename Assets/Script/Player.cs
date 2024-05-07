@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     public static bool parado;
     bool agachado;
     public bool isRunnig;
+    public float maxStamina = 100f;
+    public float currentStamina;
+    public float staminaDecreaseRate = 10f;
+    public float staminaIncreaseRate = 5f;
 
     [Header("LanternConf")]
     public GameObject lanternaObjeto;
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour
         atualforwardSpeed = forwardSpeed;
         atualstrafeSpeed = strafeSpeed;
         bateriaAtual = bateriaMax;
+        currentStamina = maxStamina;
     }
 
 
@@ -63,26 +68,43 @@ public class Player : MonoBehaviour
         }
 
         Vector3 finalVelocity = forward + strafe + vertical;
-
         finalVelocity.Normalize();
 
-        controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && agachado == false)
+        // Verifica se o jogador está correndo e se tem stamina suficiente
+        if (Input.GetKey(KeyCode.LeftShift) && agachado == false && currentStamina > 0)
         {
             atualforwardSpeed = 2 * forwardSpeed;
             atualstrafeSpeed = 2 * strafeSpeed;
             isRunnig = true;
-
             handsAnim.SetFloat("isRunnig", 1);
+
+            // Reduz a stamina
+            currentStamina -= staminaDecreaseRate * Time.deltaTime;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && agachado == false)
+        else
         {
             atualforwardSpeed = forwardSpeed;
             atualstrafeSpeed = strafeSpeed;
             isRunnig = false;
             handsAnim.SetFloat("isRunnig", 0);
+
+            // Se o jogador estava correndo e a stamina acabou, interrompe o movimento
+            if (isRunnig)
+            {
+                finalVelocity = Vector3.zero;
+            }
         }
 
+        // Restaura a stamina se o jogador não estiver correndo
+        if (!isRunnig && currentStamina < maxStamina)
+        {
+            currentStamina += staminaIncreaseRate * Time.deltaTime;
+        }
+
+        // Garante que a stamina não exceda o máximo ou se torne negativa
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+
+        controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
     }
     void Lanterna()
     {
