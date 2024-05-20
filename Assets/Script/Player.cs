@@ -32,8 +32,12 @@ public class Player : MonoBehaviour
     public static float bateriaAtual;
     public Slider imagemBateria;
 
-    public Animator handsAnim;
 
+    [Header("Arma")]
+    public GameObject arma;
+    public Collider armaColider;
+    public Animator bastaoAnim;
+    public bool CdAtack;
 
     void Start()
     {
@@ -52,8 +56,54 @@ public class Player : MonoBehaviour
             Move();
             //Agachar();
             Lanterna();
+            BrandirArma();
+            atacar();
         }
     }
+    void atacar()
+    {
+        if(arma.activeSelf)
+        {
+            if (Input.GetButtonDown("Fire1")&& CdAtack == false)
+            {
+                StartCoroutine(atackAnim());
+            }
+
+        }
+    }
+
+    IEnumerator atackAnim()
+    {
+        armaColider.enabled = true;
+        bastaoAnim.SetFloat("atacking", 1);
+        yield return new WaitForSeconds(1f);
+        armaColider.enabled = false;
+        bastaoAnim.SetFloat("atacking", 0);
+        CdAtack = true;
+        Debug.Log("cd");
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("pode");
+        CdAtack = false;
+    }
+    void BrandirArma()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            toggleArma();
+        }
+    }
+    void toggleArma()
+    {
+        if(arma.activeSelf)
+        {
+            arma.SetActive(false);
+        }
+        else
+        {
+            arma.SetActive(true);
+        }
+    }
+
     void Move()
     {
         float forwardInput = Input.GetAxisRaw("Vertical");
@@ -76,7 +126,6 @@ public class Player : MonoBehaviour
             atualforwardSpeed = 2 * forwardSpeed;
             atualstrafeSpeed = 2 * strafeSpeed;
             isRunnig = true;
-            handsAnim.SetFloat("isRunnig", 1);
 
             // Reduz a stamina
             currentStamina -= staminaDecreaseRate * Time.deltaTime;
@@ -86,7 +135,6 @@ public class Player : MonoBehaviour
             atualforwardSpeed = forwardSpeed;
             atualstrafeSpeed = strafeSpeed;
             isRunnig = false;
-            handsAnim.SetFloat("isRunnig", 0);
 
             // Se o jogador estava correndo e a stamina acabou, interrompe o movimento
             if (isRunnig)
@@ -106,6 +154,7 @@ public class Player : MonoBehaviour
 
         controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
     }
+
     void Lanterna()
     {
         // Verifica se a lanterna está ligada

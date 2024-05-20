@@ -10,6 +10,7 @@ TagManager:
   - Parede
   - PagItem
   - Gaveta
+  - Arma
   layers:
   - Default
   - TransparentFX

@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 3718308978311114347}
+  vidaMax: 3
   numberOfRays: 25
   rayAngle: 180
   yOffset: 1.09
