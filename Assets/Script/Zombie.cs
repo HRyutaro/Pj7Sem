@@ -6,7 +6,11 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
     public NavMeshAgent agent;
+    [Header("vida")]
+    public int vidaMax;
+    int vidaAtual;
 
+    [Header("Controle")]
     public int numberOfRays = 5;
     public float rayAngle = 30f;
     public float yOffset = 1.0f;
@@ -22,6 +26,7 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         rangeOriginal = range;
+        vidaAtual = vidaMax;
     }
 
 
@@ -32,9 +37,16 @@ public class Zombie : MonoBehaviour
 
         look(startOffset);
         listenig(startOffset2);
+        Vida();
     }
 
-
+    void Vida()
+    {
+        if(vidaAtual <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnDrawGizmos()
     {
         Vector3 startOffset = transform.forward * offsetDistance;
@@ -202,6 +214,14 @@ public class Zombie : MonoBehaviour
                     agent.destination = GameObject.FindWithTag("Player").transform.position;
                 }
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Arma"))
+        {
+            vidaAtual -= 1;
         }
     }
 }

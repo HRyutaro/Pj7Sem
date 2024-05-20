@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     public Slider brilobutton;
 
     public Image ima;
+    public float brilhoNum;
 
     public float tempoShowInfo = 3;
     void Start()
@@ -36,12 +37,13 @@ public class GameController : MonoBehaviour
 
         sensibilityButtonX.value = cam.sensitivityX;
         sensibilityButtonY.value = cam.sensitivityY;
-        brilobutton.value = 0.5f;
+        
     }
 
 
     void Update()
     {
+        brilhoNum = brilobutton.value;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
@@ -91,7 +93,7 @@ public class GameController : MonoBehaviour
     {
         cam.sensitivityX = sensibilityButtonX.value;
         cam.sensitivityY = sensibilityButtonY.value;
-        ima.color = new Color(0, 0, 0, brilobutton.value);
+        ima.color = new Color(0, 0, 0, brilhoNum);
     }
     public void voltarOpcoes()
     {
