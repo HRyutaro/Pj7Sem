@@ -31,6 +31,7 @@ public class CamConfig : MonoBehaviour
     Chave chave;
     PaginaItem pagitem;
     Gaveta gaveta;
+
     void Start()
     {
 
@@ -93,21 +94,6 @@ public class CamConfig : MonoBehaviour
             {
                 outlineObject.Select();
                 //Debug.Log(outlineObject.name);
-                if (outlineObject.CompareTag("Bateria"))
-                {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if (Inventario.Baterias <= 4)
-                        {
-                            Inventario.Baterias++;
-                            Destroy(outlineObject.gameObject);
-                        }
-                        else
-                        {
-                            GameController.instance.ShowInformacao("Ja tenho muitos guardados");
-                        }
-                    }
-                }
                 if (outlineObject.CompareTag("Porta"))
                 {
                     porta = hit.transform.GetComponent<Porta>();

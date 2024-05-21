@@ -11,6 +11,7 @@ TagManager:
   - PagItem
   - Gaveta
   - Arma
+  - Luz
   layers:
   - Default
   - TransparentFX

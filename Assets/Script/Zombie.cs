@@ -23,6 +23,8 @@ public class Zombie : MonoBehaviour
 
     public Player player;
 
+    public bool OnLuz = false;
+
     void Start()
     {
         rangeOriginal = range;
@@ -34,10 +36,12 @@ public class Zombie : MonoBehaviour
     {
         Vector3 startOffset = transform.forward * offsetDistance;
         Vector3 startOffset2 = -transform.forward * offsetDistance;
-
-        look(startOffset);
-        listenig(startOffset2);
-        Vida();
+        if(!OnLuz)
+        {
+            look(startOffset);
+            listenig(startOffset2);
+            Vida();
+        }
     }
 
     void Vida()
@@ -217,11 +221,11 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Arma"))
+        if (other.gameObject.CompareTag("Luz"))
         {
-            vidaAtual -= 1;
+            OnLuz = true;
         }
     }
 }

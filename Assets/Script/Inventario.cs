@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Inventario : MonoBehaviour
 {
-    public static int Baterias;
     public Text textoHud;
 
     static public bool temChaveArquivos;
@@ -27,7 +26,6 @@ public class Inventario : MonoBehaviour
 
     void Start()
     {
-        Baterias = 0;
         temPag1 = false;
         temPag2 = false;
         temPag3 = false;
@@ -38,25 +36,12 @@ public class Inventario : MonoBehaviour
 
     void Update()
     {
-        UsarBateria();
-        AttHudBateria();
         AbrirInventario();
     }
 
-    void UsarBateria()
-    {
-        if (Input.GetKeyDown(KeyCode.R) && Player.parado == false)
-        {
-            if (Baterias >= 1 && Player.bateriaAtual < 50)
-            {
-                Player.bateriaAtual += 20;
-                Baterias -= 1;
-            }
-        }
-    }
     void AttHudBateria()
     {
-        textoHud.text = Baterias.ToString();
+        //textoHud.text = Baterias.ToString();
     }
     void AbrirInventario()
     {

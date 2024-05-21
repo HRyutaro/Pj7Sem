@@ -25,26 +25,11 @@ public class Player : MonoBehaviour
     public float staminaDecreaseRate = 10f;
     public float staminaIncreaseRate = 5f;
 
-    [Header("LanternConf")]
-    public GameObject lanternaObjeto;
-    public Light lanterna;
-    public float bateriaMax;
-    public static float bateriaAtual;
-    public Slider imagemBateria;
-
-
-    [Header("Arma")]
-    public GameObject arma;
-    public Collider armaColider;
-    public Animator bastaoAnim;
-    public bool CdAtack;
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
         atualforwardSpeed = forwardSpeed;
         atualstrafeSpeed = strafeSpeed;
-        bateriaAtual = bateriaMax;
         currentStamina = maxStamina;
     }
 
@@ -55,54 +40,9 @@ public class Player : MonoBehaviour
         {
             Move();
             //Agachar();
-            Lanterna();
-            BrandirArma();
-            atacar();
-        }
-    }
-    void atacar()
-    {
-        if(arma.activeSelf)
-        {
-            if (Input.GetButtonDown("Fire1")&& CdAtack == false)
-            {
-                StartCoroutine(atackAnim());
-            }
-
         }
     }
 
-    IEnumerator atackAnim()
-    {
-        armaColider.enabled = true;
-        bastaoAnim.SetFloat("atacking", 1);
-        yield return new WaitForSeconds(1f);
-        armaColider.enabled = false;
-        bastaoAnim.SetFloat("atacking", 0);
-        CdAtack = true;
-        Debug.Log("cd");
-        yield return new WaitForSeconds(1.5f);
-        Debug.Log("pode");
-        CdAtack = false;
-    }
-    void BrandirArma()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            toggleArma();
-        }
-    }
-    void toggleArma()
-    {
-        if(arma.activeSelf)
-        {
-            arma.SetActive(false);
-        }
-        else
-        {
-            arma.SetActive(true);
-        }
-    }
 
     void Move()
     {
@@ -153,59 +93,6 @@ public class Player : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
         controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
-    }
-
-    void Lanterna()
-    {
-        // Verifica se a lanterna está ligada
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ToggleLanterna();
-
-        }
-
-        // Verifica se a lanterna está ligada e a bateria não está vazia
-        if (lanterna.enabled && bateriaAtual > 0)
-        {
-            // Reduz a bateria com o tempo (ajuste o valor como desejado)
-            if (parado == false)
-            {
-                bateriaAtual -= Time.deltaTime;
-            }
-
-            // Atualiza a intensidade da luz com base na carga da bateria
-
-            if (bateriaAtual >= 7.5f)
-            {
-                lanterna.intensity = 0.7f;
-            }
-            else if (bateriaAtual <= 7.5f)
-            {
-                lanterna.intensity = 0.35f;
-            }
-        }
-        else
-        {
-            // Desliga a lanterna quando a bateria estiver vazia
-            lanterna.enabled = false;
-            lanternaObjeto.SetActive(false);
-        }
-
-        imagemBateria.value = bateriaAtual;
-    }
-
-    void ToggleLanterna()
-    {
-        // Liga ou desliga a lanterna
-        lanterna.enabled = !lanterna.enabled;
-        if (lanterna.enabled == true)
-        {
-            lanternaObjeto.SetActive(true);
-        }
-        else
-        {
-            lanternaObjeto.SetActive(false);
-        }
     }
 
     void Agachar()
