@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Porta : MonoBehaviour
 {
@@ -26,12 +28,13 @@ public class Porta : MonoBehaviour
                 {
                     anim.SetBool("fechada", false);
                     anim.SetBool("aberta", true);
-
+                    StartCoroutine(StopPlayer());
                 }
                 else
                 {
                     anim.SetBool("fechada", true);
                     anim.SetBool("aberta", false);
+                    StartCoroutine(StopPlayer());
                 }
             }
             else if(trancada == true)
@@ -43,6 +46,13 @@ public class Porta : MonoBehaviour
         {
             GameController.instance.ShowInformacao(textoChaveIncorreta);
         }
+    }
+    
+     IEnumerator StopPlayer()
+    {
+        Player.parado = true;
+        yield return new WaitForSeconds(0.7f);
+        Player.parado = false;
     }
 
     public void DestrancarPortaRecepcao()

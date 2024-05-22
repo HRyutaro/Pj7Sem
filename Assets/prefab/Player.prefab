@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5531604275666511901}
   - component: {fileID: 5531604275666511902}
   - component: {fileID: 5531604275666511872}
+  - component: {fileID: 5355015035463958862}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -121,12 +122,10 @@ MonoBehaviour:
   strafeSpeed: 3
   atualstrafeSpeed: 0
   isRunnig: 0
-  stamina: 20
-  lanternaObjeto: {fileID: 0}
-  lanterna: {fileID: 0}
-  bateriaMax: 50
-  imagemBateria: {fileID: 0}
-  handsAnim: {fileID: 0}
+  maxStamina: 100
+  currentStamina: 0
+  staminaDecreaseRate: 10
+  staminaIncreaseRate: 5
 --- !u!114 &5531604275666511872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,3 +140,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoHud: {fileID: 0}
   invetarioHud: {fileID: 0}
+--- !u!81 &5355015035463958862
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531604275666511903}
+  m_Enabled: 1

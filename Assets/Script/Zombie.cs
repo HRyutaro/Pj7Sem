@@ -6,9 +6,6 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
     public NavMeshAgent agent;
-    [Header("vida")]
-    public int vidaMax;
-    int vidaAtual;
 
     [Header("Controle")]
     public int numberOfRays = 5;
@@ -24,33 +21,49 @@ public class Zombie : MonoBehaviour
     public Player player;
 
     public bool OnLuz = false;
+    public AudioSource[] grunido;
+    public float minCDGrunido = 3f;
+    public float maxCDGrunido = 7f;
+
 
     void Start()
     {
         rangeOriginal = range;
-        vidaAtual = vidaMax;
+        StartCoroutine(som());
     }
 
-
-    void Update()
+    private void FixedUpdate()
     {
-        Vector3 startOffset = transform.forward * offsetDistance;
-        Vector3 startOffset2 = -transform.forward * offsetDistance;
-        if(!OnLuz)
+        if(OnLuz == false)
         {
+            Vector3 startOffset = transform.forward * offsetDistance;
+            Vector3 startOffset2 = -transform.forward * offsetDistance;
             look(startOffset);
             listenig(startOffset2);
-            Vida();
         }
-    }
-
-    void Vida()
-    {
-        if(vidaAtual <= 0)
+        else if(OnLuz == true)
         {
             Destroy(gameObject);
         }
     }
+
+    IEnumerator som()
+    {
+            while (true)
+            {
+                // Escolhe um grunhido aleatório da lista
+                if (grunido.Length > 0)
+                {
+                    int randomIndex = Random.Range(0, grunido.Length);
+                    grunido[randomIndex].Play();
+                }
+
+                // Espera por um tempo aleatório entre minTimeBetweenGrowls e maxTimeBetweenGrowls
+                float waitTime = Random.Range(minCDGrunido, maxCDGrunido);
+                yield return new WaitForSeconds(waitTime);
+            }
+    }
+
     private void OnDrawGizmos()
     {
         Vector3 startOffset = transform.forward * offsetDistance;
@@ -77,7 +90,6 @@ public class Zombie : MonoBehaviour
 
             // Create and draw the ray
             Ray ray = new Ray(raycastOrigin, direction * range);
-            Debug.DrawLine(raycastOrigin, direction * range);
 
             // Check for collisions and add to hitList if there's a hit
             RaycastHit hit;
@@ -115,7 +127,6 @@ public class Zombie : MonoBehaviour
 
             // Create and draw the ray
             Ray ray = new Ray(raycastOrigin, direction * range);
-            Debug.DrawLine(raycastOrigin, direction * range);
 
             // Check for collisions and add to hitList if there's a hit
             RaycastHit hit;
@@ -221,9 +232,9 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Luz"))
+        if (other.tag == "Luz")
         {
             OnLuz = true;
         }

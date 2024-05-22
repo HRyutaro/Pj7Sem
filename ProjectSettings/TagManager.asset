@@ -12,6 +12,7 @@ TagManager:
   - Gaveta
   - Arma
   - Luz
+  - inimigo
   layers:
   - Default
   - TransparentFX
