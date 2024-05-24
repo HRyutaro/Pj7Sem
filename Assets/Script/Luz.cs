@@ -15,11 +15,9 @@ public class Luz : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        // Verifica se o objeto que colidiu possui a tag "Enemy"
-        if (other.CompareTag("inimigo"))
+        if (other.gameObject.CompareTag("inimigo"))
         {
             // Destrói o objeto inimigo
             Destroy(other.gameObject);

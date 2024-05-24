@@ -11,11 +11,13 @@ public class GameController : MonoBehaviour
     public bool isPause = false;
     public GameObject pauseScreen;
     public Text textInfo;
+    public Text textDica;
 
     public CamConfig cam;
 
     public GameObject opcoesScreen;
     public GameObject buttonPaginas;
+    public GameObject buttonGravadores;
     public GameObject buttonOpcoes;
     public GameObject buttonSair;
 
@@ -37,19 +39,20 @@ public class GameController : MonoBehaviour
 
         sensibilityButtonX.value = cam.sensitivityX;
         sensibilityButtonY.value = cam.sensitivityY;
-        
+        textDica.text = "Clique tab para abrir o caderno do Nick";
+        ima.color = new Color(0, 0, 0, brilhoNum);
     }
 
 
     void Update()
     {
         brilhoNum = brilobutton.value;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        ima.color = new Color(0, 0, 0, brilhoNum);
+        if (Input.GetKeyDown(KeyCode.Escape) && Inventario.invetarioOpen == false)
         {
             Pause();
         }
     }
-
     void Pause()
     {
         isPause = !isPause;
@@ -69,7 +72,6 @@ public class GameController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
-
     public void ShowInformacao(string x)
     {
         textInfo.text = x;
@@ -93,7 +95,6 @@ public class GameController : MonoBehaviour
     {
         cam.sensitivityX = sensibilityButtonX.value;
         cam.sensitivityY = sensibilityButtonY.value;
-        ima.color = new Color(0, 0, 0, brilhoNum);
     }
     public void voltarOpcoes()
     {
@@ -107,4 +108,5 @@ public class GameController : MonoBehaviour
         Debug.Log("Sair do Jogo");
         Application.Quit();
     }
+
 }

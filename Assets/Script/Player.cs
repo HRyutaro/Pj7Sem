@@ -24,6 +24,14 @@ public class Player : MonoBehaviour
     public float currentStamina;
     public float staminaDecreaseRate = 10f;
     public float staminaIncreaseRate = 5f;
+    public bool CdCorrida;
+
+    [Header("Hud")]
+    public Slider stamina;
+    public Image imaStamina;
+    public postProcssing postProcessing;
+
+    public GameObject atackLuz;
 
     void Start()
     {
@@ -31,6 +39,8 @@ public class Player : MonoBehaviour
         atualforwardSpeed = forwardSpeed;
         atualstrafeSpeed = strafeSpeed;
         currentStamina = maxStamina;
+        stamina.maxValue = maxStamina;
+        stamina.value = currentStamina;
     }
 
 
@@ -40,6 +50,8 @@ public class Player : MonoBehaviour
         {
             Move();
             //Agachar();
+            stamina.value = currentStamina;
+            toggleAtack();
         }
     }
 
@@ -56,6 +68,10 @@ public class Player : MonoBehaviour
         {
             vertical = Vector3.down;
         }
+        else
+        {
+            vertical += Physics.gravity * Time.deltaTime; // Aplicando gravidade quando não está no chão
+        }
 
         Vector3 finalVelocity = forward + strafe + vertical;
         finalVelocity.Normalize();
@@ -63,12 +79,15 @@ public class Player : MonoBehaviour
         // Verifica se o jogador está correndo e se tem stamina suficiente
         if (Input.GetKey(KeyCode.LeftShift) && agachado == false && currentStamina > 0)
         {
-            atualforwardSpeed = 2 * forwardSpeed;
-            atualstrafeSpeed = 2 * strafeSpeed;
-            isRunnig = true;
+            if(CdCorrida == false)
+            {
+                atualforwardSpeed = 2 * forwardSpeed;
+                atualstrafeSpeed = 2 * strafeSpeed;
+                isRunnig = true;
 
-            // Reduz a stamina
-            currentStamina -= staminaDecreaseRate * Time.deltaTime;
+                // Reduz a stamina
+                currentStamina -= staminaDecreaseRate * Time.deltaTime;
+            }
         }
         else
         {
@@ -80,6 +99,7 @@ public class Player : MonoBehaviour
             if (isRunnig)
             {
                 finalVelocity = Vector3.zero;
+
             }
         }
 
@@ -89,12 +109,38 @@ public class Player : MonoBehaviour
             currentStamina += staminaIncreaseRate * Time.deltaTime;
         }
 
+        if(currentStamina <= 0)
+        {
+            imaStamina.color = Color.red;
+            CdCorrida = true;
+            postProcessing.ToggleChromaticAberration(true);
+        }
+        if(CdCorrida == true)
+        {
+            if(currentStamina >= (maxStamina / 2))
+            {
+                CdCorrida = false;
+                imaStamina.color = new Color(0, 125f / 255f, 164f / 255f);
+                postProcessing.ToggleChromaticAberration(false);
+            }
+        }
         // Garante que a stamina não exceda o máximo ou se torne negativa
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
         controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
     }
 
+    void toggleAtack()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            atackLuz.SetActive(true);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            atackLuz.SetActive(false);
+        }
+    }
     void Agachar()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))

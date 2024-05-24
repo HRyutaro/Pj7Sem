@@ -20,12 +20,14 @@ public class Pag : MonoBehaviour
     {
         paginas.SetActive(false);
         GameController.instance.buttonPaginas.SetActive(true);
+        GameController.instance.buttonGravadores.SetActive(true);
     }
 
     public void MostrarPaginas()
     {
         paginas.SetActive(true);
         GameController.instance.buttonPaginas.SetActive(false);
+        GameController.instance.buttonGravadores.SetActive(false);
     }
 
     public void MostrarPag1()

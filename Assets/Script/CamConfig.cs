@@ -30,6 +30,7 @@ public class CamConfig : MonoBehaviour
     Porta porta;
     Chave chave;
     PaginaItem pagitem;
+    GravadorItem gravadorItem;
     Gaveta gaveta;
 
     void Start()
@@ -139,6 +140,16 @@ public class CamConfig : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         gaveta.toggleGaveta();
+                    }
+                }
+                if (outlineObject.CompareTag("Gravador"))
+                {
+                    gravadorItem = hit.transform.GetComponent<GravadorItem>();
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        gravadorItem.toggleGravador();
+                        outlineObject.Deselect();
                     }
                 }
             }

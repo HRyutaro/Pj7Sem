@@ -16,6 +16,9 @@ public class MenuGameController : MonoBehaviour
     public Slider sensibilityButtonX;
     public Slider sensibilityButtonY;
 
+    public AudioSource audioSource;
+    public GameObject loadScreen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,14 @@ public class MenuGameController : MonoBehaviour
     }
     public void jogarButton()
     {
+        
+        StartCoroutine(EsperarECarregarCena());
+    }
+    private IEnumerator EsperarECarregarCena()
+    {
+        audioSource.Play();
+        loadScreen.SetActive(true);
+        yield return new WaitForSeconds(13);
         SceneManager.LoadScene("Fase");
     }
     public void Showopcoes()

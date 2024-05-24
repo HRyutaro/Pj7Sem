@@ -13,6 +13,7 @@ TagManager:
   - Arma
   - Luz
   - inimigo
+  - Gravador
   layers:
   - Default
   - TransparentFX
