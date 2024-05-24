@@ -25,11 +25,16 @@ public class Player : MonoBehaviour
     public float staminaDecreaseRate = 10f;
     public float staminaIncreaseRate = 5f;
     public bool CdCorrida;
+    public Animator anim;
 
     [Header("Hud")]
     public Slider stamina;
     public Image imaStamina;
     public postProcssing postProcessing;
+    public GameObject braco;
+    public static bool VerBraco;
+    public GameObject vidas;
+    public static bool cortouBraco;
 
     public GameObject atackLuz;
 
@@ -41,6 +46,7 @@ public class Player : MonoBehaviour
         currentStamina = maxStamina;
         stamina.maxValue = maxStamina;
         stamina.value = currentStamina;
+        cortouBraco = false;
     }
 
 
@@ -51,8 +57,13 @@ public class Player : MonoBehaviour
             Move();
             //Agachar();
             stamina.value = currentStamina;
-            toggleAtack();
+            //toggleAtack();
         }
+        else
+        {
+            anim.SetFloat("Walk", 0);
+        }
+            toggleVida();
     }
 
 
@@ -95,6 +106,7 @@ public class Player : MonoBehaviour
             atualstrafeSpeed = strafeSpeed;
             isRunnig = false;
 
+
             // Se o jogador estava correndo e a stamina acabou, interrompe o movimento
             if (isRunnig)
             {
@@ -128,8 +140,29 @@ public class Player : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
         controller.Move(finalVelocity * atualforwardSpeed * Time.deltaTime);
+
+        float walkSpeed = Mathf.Abs(forwardInput) + Mathf.Abs(strafeInput);
+        anim.SetFloat("Walk", walkSpeed);
     }
 
+
+    void toggleVida()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && cortouBraco)
+        {
+            VerBraco = !VerBraco;
+        }
+        if (VerBraco)
+        {
+            vidas.SetActive(true);
+            braco.SetActive(true);
+        }
+        if (!VerBraco)
+        {
+            vidas.SetActive(false);
+            braco.SetActive(false);
+        }
+    }
     void toggleAtack()
     {
         if (Input.GetMouseButtonDown(1))

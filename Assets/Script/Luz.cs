@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Luz : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Zombie inimigo;
     void Start()
     {
         
@@ -20,7 +20,18 @@ public class Luz : MonoBehaviour
         if (other.gameObject.CompareTag("inimigo"))
         {
             // Destrói o objeto inimigo
-            Destroy(other.gameObject);
+            inimigo = other.transform.GetComponent<Zombie>();
+            inimigo.OnLuz = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("inimigo"))
+        {
+            // Destrói o objeto inimigo
+            
+            inimigo = other.transform.GetComponent<Zombie>();
+            inimigo.OnLuz = false;
         }
     }
 }

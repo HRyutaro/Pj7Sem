@@ -40,10 +40,11 @@ public class Zombie : MonoBehaviour
             Vector3 startOffset2 = -transform.forward * offsetDistance;
             look(startOffset);
             listenig(startOffset2);
+            agent.isStopped = false;
         }
         else if(OnLuz == true)
         {
-            Destroy(gameObject);
+            agent.isStopped = true;
         }
     }
 
@@ -232,11 +233,18 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "Luz")
         {
             OnLuz = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Luz")
+        {
+            OnLuz = false;
         }
     }
 }

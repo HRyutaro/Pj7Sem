@@ -5,7 +5,6 @@ using UnityEngine;
 public class TocarAudio : MonoBehaviour
 {
     public AudioSource som;
-    public GameObject vidas;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,15 +12,17 @@ public class TocarAudio : MonoBehaviour
         {
             Player.parado = true;
             som.Play();
-            vidas.SetActive(true);
+            Player.cortouBraco = true;
+            Player.VerBraco = true;
+            GameController.instance.ShowInformacao("Aperte 'Q' para Levantar/Abaixar vida");
             StartCoroutine(PodeMexer());
-            Destroy(gameObject, 20);
+            Destroy(gameObject, 7);
         }
     }
 
     IEnumerator PodeMexer()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(6);
         Player.parado = false;
     }
 }
