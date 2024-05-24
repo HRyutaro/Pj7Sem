@@ -10,6 +10,8 @@ public class PaginaItem : MonoBehaviour
         if(numero == 1)
         {
             Inventario.temPag1 = true;
+            GameController.instance.textDica.text = "Procure Chuvisco\nAche mais pags sobre o ritual";
+
             Destroy(gameObject);
         }
         else if (numero == 2)

@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public Text textInfo;
     public Text textDica;
 
+
     public CamConfig cam;
 
     public GameObject opcoesScreen;
@@ -76,6 +77,10 @@ public class GameController : MonoBehaviour
     {
         textInfo.text = x;
         StartCoroutine(habilitarLegenda());
+    }
+    public void ShowInformacaoArmario(string x)
+    {
+        textInfo.text = x;
     }
 
     IEnumerator habilitarLegenda()

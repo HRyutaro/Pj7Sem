@@ -25,26 +25,48 @@ public class Zombie : MonoBehaviour
     public float minCDGrunido = 3f;
     public float maxCDGrunido = 7f;
 
+    [Header("Patrulha")]
+    public List<Transform> pontosDeDestino;
+    public float tempoEspera = 3f;
+    public int numRandom;
+    public bool voltar;
+
+    public bool vendoPlayer;
 
     void Start()
     {
         rangeOriginal = range;
         StartCoroutine(som());
+        StartCoroutine(MudarDestinoPeriodicamente());
+        agent.destination = pontosDeDestino[numRandom].position;
+        agent.stoppingDistance = 0;
     }
 
     private void FixedUpdate()
     {
-        if(OnLuz == false)
+        Vector3 startOffset = transform.forward * offsetDistance;
+        
+        look(startOffset);
+        
+
+        if (OnLuz)
         {
-            Vector3 startOffset = transform.forward * offsetDistance;
-            Vector3 startOffset2 = -transform.forward * offsetDistance;
-            look(startOffset);
-            listenig(startOffset2);
-            agent.isStopped = false;
+            agent.isStopped = true; // Se a luz estiver ativa, pare o agente
         }
-        else if(OnLuz == true)
+        else
         {
-            agent.isStopped = true;
+            agent.isStopped = false; // Se a luz estiver inativa, permita que o agente se mova
+        }
+
+        if(vendoPlayer == true)
+        {
+            agent.stoppingDistance = 2.5f;
+            agent.destination = GameObject.FindWithTag("Player").transform.position;
+        }
+        else
+        {
+            agent.destination = pontosDeDestino[numRandom].position;
+            agent.stoppingDistance = 0;
         }
     }
 
@@ -101,12 +123,21 @@ public class Zombie : MonoBehaviour
         }
 
         // Handle hits
+        bool playerHit = false;
         foreach (RaycastHit hit in hitList)
         {
             if (hit.collider.CompareTag("Player"))
             {
-                agent.destination = GameObject.FindWithTag("Player").transform.position;
+                playerHit = true;
+                vendoPlayer = true;
+                break;
             }
+
+        }
+        if (!playerHit)
+        {
+            Vector3 startOffset2 = -transform.forward * offsetDistance;
+            listenig(startOffset2);
         }
     }
 
@@ -136,17 +167,24 @@ public class Zombie : MonoBehaviour
                 hitList2.Add(hit);
             }
         }
-
         // Handle hits
+        bool playerHit = false;
         foreach (RaycastHit hit in hitList2)
         {
             if (hit.collider.CompareTag("Player"))
             {
                 if(player.isRunnig == true)
                 {
-                    agent.destination = GameObject.FindWithTag("Player").transform.position;
+                    playerHit = true;
+                    vendoPlayer = true;
+                    break;
                 }
             }
+        }
+        if (!playerHit)
+        {
+            // Continue com o destino aleatório se o jogador não for encontrado
+            vendoPlayer = false;
         }
     }
 
@@ -233,18 +271,51 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    IEnumerator MudarDestinoPeriodicamente()
+    {
+        while (true)
+        {
+            while (true)
+            {
+                // Espera pelo tempo especificado
+                yield return new WaitForSeconds(tempoEspera);
+
+                if(voltar == true)
+                {
+                    numRandom --;
+                }
+                else
+                {
+                    numRandom++;
+                }
+                if(numRandom == pontosDeDestino.Count - 1)
+                {
+                    voltar = true;
+                }
+                else if(numRandom == 0)
+                {
+                    voltar = false;
+                }               
+                print(numRandom);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Luz")
         {
             OnLuz = true;
+            Debug.Log("Luz ativada");
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Luz")
         {
             OnLuz = false;
+            Debug.Log("Luz desativada");
         }
     }
 }

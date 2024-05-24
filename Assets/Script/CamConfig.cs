@@ -32,6 +32,8 @@ public class CamConfig : MonoBehaviour
     PaginaItem pagitem;
     GravadorItem gravadorItem;
     Gaveta gaveta;
+    interruptor Interruptor;
+    Armario armario;
 
     void Start()
     {
@@ -150,6 +152,24 @@ public class CamConfig : MonoBehaviour
                     {
                         gravadorItem.toggleGravador();
                         outlineObject.Deselect();
+                    }
+                }
+                if (outlineObject.CompareTag("Interruptor"))
+                {
+                    Interruptor = hit.transform.GetComponent<interruptor>();
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Interruptor.toggleLigarLuz();
+                    }
+                }
+                if (outlineObject.CompareTag("Armario"))
+                {
+                    armario = hit.transform.GetComponent<Armario>();
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        armario.toggleEntrarArmario();
                     }
                 }
             }
