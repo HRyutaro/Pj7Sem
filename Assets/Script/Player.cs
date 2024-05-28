@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     Vector3 vertical;
 
     public static bool comItem;
+    [Header("Vida")]
+    public int vidaMax = 7;
+    public static int vidaAtual;
 
     [Header("MoviConf")]
     public float forwardSpeed = 5f;
@@ -34,9 +37,13 @@ public class Player : MonoBehaviour
     public GameObject braco;
     public static bool VerBraco;
     public GameObject vidas;
+    public GameObject[] vidasCortes;
     public static bool cortouBraco;
+    public GameObject fantasmaRosto;
 
     public GameObject atackLuz;
+    [Header("CheckPoints")]
+    public Transform[] checkpoint;
 
     void Start()
     {
@@ -47,6 +54,7 @@ public class Player : MonoBehaviour
         stamina.maxValue = maxStamina;
         stamina.value = currentStamina;
         cortouBraco = false;
+        vidaAtual = vidaMax;
     }
 
 
@@ -63,7 +71,8 @@ public class Player : MonoBehaviour
         {
             anim.SetFloat("Walk", 0);
         }
-            toggleVida();
+        toggleVida();
+        ControleVida();
     }
 
 
@@ -144,8 +153,113 @@ public class Player : MonoBehaviour
         float walkSpeed = Mathf.Abs(forwardInput) + Mathf.Abs(strafeInput);
         anim.SetFloat("Walk", walkSpeed);
     }
+    void ControleVida()
+    {
+        if(vidaAtual == vidaMax)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(true);
+            vidasCortes[3].SetActive(true);
+            vidasCortes[4].SetActive(true);
+            vidasCortes[5].SetActive(true);
+            vidasCortes[6].SetActive(true);
+        }
+        else if (vidaAtual == 6)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(true);
+            vidasCortes[3].SetActive(true);
+            vidasCortes[4].SetActive(true);
+            vidasCortes[5].SetActive(true);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 5)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(true);
+            vidasCortes[3].SetActive(true);
+            vidasCortes[4].SetActive(true);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 4)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(true);
+            vidasCortes[3].SetActive(true);
+            vidasCortes[4].SetActive(false);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 3)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(true);
+            vidasCortes[3].SetActive(false);
+            vidasCortes[4].SetActive(false);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 2)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(true);
+            vidasCortes[2].SetActive(false);
+            vidasCortes[3].SetActive(false);
+            vidasCortes[4].SetActive(false);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 1)
+        {
+            vidasCortes[0].SetActive(true);
+            vidasCortes[1].SetActive(false);
+            vidasCortes[2].SetActive(false);
+            vidasCortes[3].SetActive(false);
+            vidasCortes[4].SetActive(false);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
+        else if (vidaAtual == 0)
+        {
+            vidasCortes[0].SetActive(false);
+            vidasCortes[1].SetActive(false);
+            vidasCortes[2].SetActive(false);
+            vidasCortes[3].SetActive(false);
+            vidasCortes[4].SetActive(false);
+            vidasCortes[5].SetActive(false);
+            vidasCortes[6].SetActive(false);
+        }
 
+    }
+    public void morrer()
+    {
+        if(vidaAtual > 0)
+        {
+            vidaAtual -= 1;
+            Debug.Log("vidaAtual " + vidaAtual);
+            fantasmaRosto.SetActive(true);
+            parado = true;
+            Invoke("ResetToCheckpoint", 0.5f);
+        }
+        else
+        {
+            GameController.instance.GameOver();
+        }
+    }
 
+    private void ResetToCheckpoint()
+    {
+        transform.position = checkpoint[0].position;
+        transform.rotation = checkpoint[0].rotation;
+        fantasmaRosto.SetActive(false); // Esconde o fantasma, se necessário
+        parado = false; // Permite que o player se mova novamente
+    }
     void toggleVida()
     {
         if (Input.GetKeyDown(KeyCode.Q) && cortouBraco)

@@ -30,11 +30,21 @@ public class Zombie : MonoBehaviour
     public float tempoEspera = 3f;
     public int numRandom;
     public bool voltar;
-
+    private bool isFunctionActivated;
     public bool vendoPlayer;
 
+    [Header("Mesh")]
+    public MeshRenderer corpo;
+    public GameObject olhos;
+
+    public float detectionTime = 3.0f; // Tempo necessário para ativar a função
+    private float timer = 0.0f; // Temporizador
+
+    private Player playerControler;
     void Start()
     {
+        GameObject p1 = GameObject.FindWithTag("Player");
+        playerControler = p1.GetComponent<Player>();
         rangeOriginal = range;
         StartCoroutine(som());
         StartCoroutine(MudarDestinoPeriodicamente());
@@ -62,11 +72,37 @@ public class Zombie : MonoBehaviour
         {
             agent.stoppingDistance = 2.5f;
             agent.destination = GameObject.FindWithTag("Player").transform.position;
+
+            // Verifica se o inimigo atingiu a distância de parada
+            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+            {
+                timer += Time.fixedDeltaTime; // Incrementa o temporizador
+                if (timer >= detectionTime && !isFunctionActivated)
+                {
+                    agent.isStopped = true;
+                    playerControler.morrer();
+                    corpo.enabled = false;
+                    olhos.SetActive(false);
+                    isFunctionActivated = false;
+                    agent.destination = pontosDeDestino[numRandom].position;
+                    timer = 0.0f; // Marca que a função foi ativada
+                }
+            }
+            else
+            {
+                timer = 0.0f; // Reseta o temporizador se sair da distância
+                agent.isStopped = false;
+            }
         }
         else
         {
             agent.destination = pontosDeDestino[numRandom].position;
             agent.stoppingDistance = 0;
+            timer = 0.0f;
+            isFunctionActivated = false;
+            corpo.enabled = true;
+            olhos.SetActive(true);
+            agent.isStopped = false;
         }
     }
 

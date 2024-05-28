@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4592c801519c9429b6239036e21be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidaMax: 7
   forwardSpeed: 5
   atualforwardSpeed: 0
   strafeSpeed: 3
@@ -218,6 +219,15 @@ MonoBehaviour:
   postProcessing: {fileID: 0}
   braco: {fileID: 0}
   vidas: {fileID: 0}
+  vidasCortes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fantasmaRosto: {fileID: 0}
   atackLuz: {fileID: 0}
 --- !u!114 &5531604275666511872
 MonoBehaviour:

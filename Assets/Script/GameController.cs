@@ -135,7 +135,10 @@ public class GameController : MonoBehaviour
         buttonOpcoes.SetActive(true);
         buttonSair.SetActive(true);
     }
-
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
     public void SairGame()
     {
         Debug.Log("Sair do Jogo");

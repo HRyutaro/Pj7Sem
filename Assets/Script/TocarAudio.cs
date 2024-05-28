@@ -5,13 +5,19 @@ using UnityEngine;
 public class TocarAudio : MonoBehaviour
 {
     public AudioSource som;
-
+    public AudioSource som1;
+    public BoxCollider proprio;
+    private void Start()
+    {
+        Invoke("startAudio", 3f);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            proprio.enabled = false;
             Player.parado = true;
-            som.Play();
+            som1.Play();
             Player.cortouBraco = true;
             Player.VerBraco = true;
             GameController.instance.ShowInformacao("Aperte 'Q' para Levantar/Abaixar vida");
@@ -20,6 +26,10 @@ public class TocarAudio : MonoBehaviour
         }
     }
 
+    void startAudio()
+    {
+        som.Play();
+    }
     IEnumerator PodeMexer()
     {
         yield return new WaitForSeconds(6);
