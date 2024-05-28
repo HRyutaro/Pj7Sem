@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public GameObject pauseScreen;
     public Text textInfo;
     public Text textDica;
+    public Text textInteracao;
 
 
     public CamConfig cam;
@@ -21,6 +22,8 @@ public class GameController : MonoBehaviour
     public GameObject buttonGravadores;
     public GameObject buttonOpcoes;
     public GameObject buttonSair;
+    public GameObject buttonControles;
+    public GameObject buttonConfigs;
 
     public Slider sensibilityButtonX;
     public Slider sensibilityButtonY;
@@ -29,6 +32,7 @@ public class GameController : MonoBehaviour
     public Image ima;
     public float brilhoNum;
 
+    public bool showLeitura;
     public float tempoShowInfo = 3;
     void Start()
     {
@@ -82,6 +86,19 @@ public class GameController : MonoBehaviour
     {
         textInfo.text = x;
     }
+    public void ShowInteracao(string x)
+    {
+        textInteracao.text = x;
+    }
+    public void hideInteracao()
+    {
+        textInteracao.text = "";
+    }
+    public void ShowHideLeitura(GameObject Imagem)
+    {
+        showLeitura = !showLeitura;
+        Imagem.SetActive(showLeitura);
+    }
 
     IEnumerator habilitarLegenda()
     {
@@ -95,6 +112,17 @@ public class GameController : MonoBehaviour
         opcoesScreen.SetActive(true);
         buttonOpcoes.SetActive(false);
         buttonSair.SetActive(false);
+    }
+
+    public void ShowControles()
+    {
+        buttonControles.SetActive(true);
+        buttonConfigs.SetActive(false);
+    }
+    public void ShowConfigs()
+    {
+        buttonControles.SetActive(false);
+        buttonConfigs.SetActive(true);
     }
     public void opcoesConfig()
     {

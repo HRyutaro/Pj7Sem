@@ -12,6 +12,9 @@ public class MenuGameController : MonoBehaviour
     public GameObject opcoesScreen;
     public GameObject buttonOpcoes;
     public GameObject buttonSair;
+    public GameObject buttonControles;
+    public GameObject buttonConfigs;
+
 
     public Slider sensibilityButtonX;
     public Slider sensibilityButtonY;
@@ -29,6 +32,17 @@ public class MenuGameController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void ShowControles()
+    {
+        buttonControles.SetActive(true);
+        buttonConfigs.SetActive(false);
+    }
+    public void ShowConfigs()
+    {
+        buttonControles.SetActive(false);
+        buttonConfigs.SetActive(true);
     }
     public void jogarButton()
     {

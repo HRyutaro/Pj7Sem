@@ -9,6 +9,7 @@ public class Armario : MonoBehaviour
     public GameObject bodyPlayer;
 
     bool dentroArmario;
+
     void Start()
     {
         
@@ -24,6 +25,7 @@ public class Armario : MonoBehaviour
             bodyPlayer.SetActive(false);
             GameController.instance.textInfo.enabled = true;
             GameController.instance.ShowInformacaoArmario("Aperte 'E' para Sair");
+            GameController.instance.hideInteracao();
             if(Input.GetKeyDown(KeyCode.E))
             {
                 dentroArmario = false;

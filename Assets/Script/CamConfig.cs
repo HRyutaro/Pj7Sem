@@ -88,6 +88,7 @@ public class CamConfig : MonoBehaviour
             {
                 if (outlineObject.transform != hit.transform)
                 {
+                    GameController.instance.hideInteracao();
                     outlineObject.Deselect();
                 }
             }
@@ -99,6 +100,8 @@ public class CamConfig : MonoBehaviour
                 //Debug.Log(outlineObject.name);
                 if (outlineObject.CompareTag("Porta"))
                 {
+                    GameController.instance.ShowInteracao("Aperte 'E' para Abrir");
+
                     porta = hit.transform.GetComponent<Porta>();
 
                     if (Input.GetKeyDown(KeyCode.E))
@@ -118,7 +121,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("Chave"))
                 {
                     chave = hit.transform.GetComponent<Chave>();
-
+                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         chave.toggle();
@@ -128,7 +131,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("PagItem"))
                 {
                     pagitem = hit.transform.GetComponent<PaginaItem>();
-
+                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         pagitem.toggle();
@@ -138,6 +141,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("Gaveta"))
                 {
                     gaveta = hit.transform.GetComponent<Gaveta>();
+                    GameController.instance.ShowInteracao("Aperte 'E' para Abrir/fechar");
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
@@ -147,7 +151,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("Gravador"))
                 {
                     gravadorItem = hit.transform.GetComponent<GravadorItem>();
-
+                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         gravadorItem.toggleGravador();
@@ -157,7 +161,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("Interruptor"))
                 {
                     Interruptor = hit.transform.GetComponent<interruptor>();
-
+                    GameController.instance.ShowInteracao("Aperte 'E' para Ligar/Desligar");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         Interruptor.toggleLigarLuz();
@@ -166,7 +170,7 @@ public class CamConfig : MonoBehaviour
                 if (outlineObject.CompareTag("Armario"))
                 {
                     armario = hit.transform.GetComponent<Armario>();
-
+                    GameController.instance.ShowInteracao("Aperte 'E' para Entrar");
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         armario.toggleEntrarArmario();
