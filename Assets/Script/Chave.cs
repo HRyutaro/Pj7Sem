@@ -17,27 +17,27 @@ public class Chave : MonoBehaviour
         if(chaveArquivos)
         {
             Inventario.temChaveArquivos = true;
-            GameController.instance.ShowInformacao("Deve ser a chave dos arquivos");
+            GameController.instance.ShowInformacao("Chave da sala de arquivos");
         }
         if (ChaveVestiario)
         {
             Inventario.temChaveVestiario = true;
-            GameController.instance.ShowInformacao("Deve ser a chave dos Vestiario");
+            GameController.instance.ShowInformacao("Chave do Vestiario");
         }
         if (ChaveSlLegista)
         {
             Inventario.temChaveSlLegista = true;
-            GameController.instance.ShowInformacao("Deve ser a chave da Sala do legista");
+            GameController.instance.ShowInformacao("Chave da Sala do legista");
         }
         if (ChaveLaboratorio)
         {
             Inventario.temChaveLaboratorio = true;
-            GameController.instance.ShowInformacao("Deve ser a chave do laboratorio");
+            GameController.instance.ShowInformacao("Chave do laboratorio");
         }
         if (ChaveArmazem)
         {
             Inventario.temChaveArmazem = true;
-            GameController.instance.ShowInformacao("Deve ser a chave do Armazem");
+            GameController.instance.ShowInformacao("Chave do Armazem");
         }
         gameObject.SetActive(false);
     }

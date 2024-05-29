@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
 
     public bool showLeitura;
     public float tempoShowInfo = 3;
+
+    public bool Cheat;
     void Start()
     {
         instance = this;
@@ -135,6 +137,7 @@ public class GameController : MonoBehaviour
         buttonOpcoes.SetActive(true);
         buttonSair.SetActive(true);
     }
+    
     public void GameOver()
     {
         SceneManager.LoadScene("GameOver");

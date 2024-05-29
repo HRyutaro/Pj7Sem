@@ -10,6 +10,7 @@ public class Porta : MonoBehaviour
     public bool imperrada = false;
     public GameObject chave;
     public string textoChaveIncorreta = "Preciso da chave correta para abrir esta porta.";
+    public AudioSource som;
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class Porta : MonoBehaviour
         else
         {
             GameController.instance.ShowInformacao(textoChaveIncorreta);
+            som.Play();
         }
     }
     

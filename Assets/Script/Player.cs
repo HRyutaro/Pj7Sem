@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
             anim.SetFloat("Walk", 0);
         }
         toggleVida();
+
         ControleVida();
     }
 
@@ -111,7 +112,10 @@ public class Player : MonoBehaviour
                 isRunnig = true;
 
                 // Reduz a stamina
-                currentStamina -= staminaDecreaseRate * Time.deltaTime;
+                if(GameController.instance.Cheat == false)
+                {
+                    currentStamina -= staminaDecreaseRate * Time.deltaTime;
+                }
             }
         }
         else
@@ -162,107 +166,114 @@ public class Player : MonoBehaviour
     }
     void ControleVida()
     {
-        if(vidaAtual == vidaMax)
+        if(GameController.instance.Cheat == false)
         {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(true);
-            vidasCortes[3].SetActive(true);
-            vidasCortes[4].SetActive(true);
-            vidasCortes[5].SetActive(true);
-            vidasCortes[6].SetActive(true);
-        }
-        else if (vidaAtual == 6)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(true);
-            vidasCortes[3].SetActive(true);
-            vidasCortes[4].SetActive(true);
-            vidasCortes[5].SetActive(true);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 5)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(true);
-            vidasCortes[3].SetActive(true);
-            vidasCortes[4].SetActive(true);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 4)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(true);
-            vidasCortes[3].SetActive(true);
-            vidasCortes[4].SetActive(false);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 3)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(true);
-            vidasCortes[3].SetActive(false);
-            vidasCortes[4].SetActive(false);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 2)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(true);
-            vidasCortes[2].SetActive(false);
-            vidasCortes[3].SetActive(false);
-            vidasCortes[4].SetActive(false);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 1)
-        {
-            vidasCortes[0].SetActive(true);
-            vidasCortes[1].SetActive(false);
-            vidasCortes[2].SetActive(false);
-            vidasCortes[3].SetActive(false);
-            vidasCortes[4].SetActive(false);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
-        }
-        else if (vidaAtual == 0)
-        {
-            vidasCortes[0].SetActive(false);
-            vidasCortes[1].SetActive(false);
-            vidasCortes[2].SetActive(false);
-            vidasCortes[3].SetActive(false);
-            vidasCortes[4].SetActive(false);
-            vidasCortes[5].SetActive(false);
-            vidasCortes[6].SetActive(false);
+
+            if(vidaAtual == vidaMax)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(true);
+                vidasCortes[3].SetActive(true);
+                vidasCortes[4].SetActive(true);
+                vidasCortes[5].SetActive(true);
+                vidasCortes[6].SetActive(true);
+            }
+            else if (vidaAtual == 6)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(true);
+                vidasCortes[3].SetActive(true);
+                vidasCortes[4].SetActive(true);
+                vidasCortes[5].SetActive(true);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 5)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(true);
+                vidasCortes[3].SetActive(true);
+                vidasCortes[4].SetActive(true);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 4)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(true);
+                vidasCortes[3].SetActive(true);
+                vidasCortes[4].SetActive(false);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 3)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(true);
+                vidasCortes[3].SetActive(false);
+                vidasCortes[4].SetActive(false);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 2)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(true);
+                vidasCortes[2].SetActive(false);
+                vidasCortes[3].SetActive(false);
+                vidasCortes[4].SetActive(false);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 1)
+            {
+                vidasCortes[0].SetActive(true);
+                vidasCortes[1].SetActive(false);
+                vidasCortes[2].SetActive(false);
+                vidasCortes[3].SetActive(false);
+                vidasCortes[4].SetActive(false);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
+            else if (vidaAtual == 0)
+            {
+                vidasCortes[0].SetActive(false);
+                vidasCortes[1].SetActive(false);
+                vidasCortes[2].SetActive(false);
+                vidasCortes[3].SetActive(false);
+                vidasCortes[4].SetActive(false);
+                vidasCortes[5].SetActive(false);
+                vidasCortes[6].SetActive(false);
+            }
         }
 
     }
     public void morrer()
     {
-        Debug.Log("Função morrer chamada. Vida atual: " + vidaAtual);
-        if (vidaAtual >= 1)
+        if(GameController.instance.Cheat == false)
         {
-            vidaAtual -= 1;
-            Debug.Log("vidaAtual após decremento: " + vidaAtual);
-            Debug.Log("vidaAtual " + vidaAtual);
-            fantasmaRosto.SetActive(true);
-            parado = true;
-            Invoke("ResetToCheckpoint", 1f);
-        }
-        else
-        {
-            Debug.Log("Resetando para o checkpoint: " + currentSpawn);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-            Debug.Log("Chamada do GameOver");
-            GameController.instance.GameOver();
+            Debug.Log("Função morrer chamada. Vida atual: " + vidaAtual);
+            if (vidaAtual >= 1)
+            {
+                vidaAtual -= 1;
+                Debug.Log("vidaAtual após decremento: " + vidaAtual);
+                Debug.Log("vidaAtual " + vidaAtual);
+                fantasmaRosto.SetActive(true);
+                parado = true;
+                Invoke("ResetToCheckpoint", 1f);
+            }
+            else
+            {
+                Debug.Log("Resetando para o checkpoint: " + currentSpawn);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                Debug.Log("Chamada do GameOver");
+                GameController.instance.GameOver();
+            }
         }
     }
     private IEnumerator voltarAndar()
@@ -272,10 +283,13 @@ public class Player : MonoBehaviour
     }
     private void ResetToCheckpoint()
     {
-        transform.position = checkpoint[currentSpawn].position;
-        transform.rotation = checkpoint[currentSpawn].rotation;
-        fantasmaRosto.SetActive(false); // Esconde o fantasma, se necessário
-        StartCoroutine("voltarAndar"); // Permite que o player se mova novamente
+        if(GameController.instance.Cheat == false)
+        {
+            transform.position = checkpoint[currentSpawn].position;
+            transform.rotation = checkpoint[currentSpawn].rotation;
+            fantasmaRosto.SetActive(false); // Esconde o fantasma, se necessário
+            StartCoroutine("voltarAndar"); // Permite que o player se mova novamente
+        }
     }
 
     
