@@ -34,6 +34,7 @@ public class CamConfig : MonoBehaviour
     Gaveta gaveta;
     interruptor Interruptor;
     Armario armario;
+    LivroAmaldicoado livroAA;
 
     void Start()
     {
@@ -82,100 +83,127 @@ public class CamConfig : MonoBehaviour
         Ray theRay = new Ray(transform.position + startOffset, transform.TransformDirection(direction * range));
         Debug.DrawRay(transform.position + startOffset, transform.TransformDirection(direction * range), Color.red);
 
+        // Verifica se o raio colidiu com algum objeto
         if (Physics.Raycast(theRay, out RaycastHit hit, range))
         {
+            // Verifica se o objeto destacado mudou
             if (outlineObject != null)
             {
                 if (outlineObject.transform != hit.transform)
                 {
                     GameController.instance.hideInteracao();
                     outlineObject.Deselect();
+                    outlineObject = null;
                 }
             }
 
+            // Obtém o componente OutlineObject do objeto atingido
             outlineObject = hit.transform.GetComponent<OutlineObject>();
             if (outlineObject != null)
             {
                 outlineObject.Select();
-                //Debug.Log(outlineObject.name);
-                if (outlineObject.CompareTag("Porta"))
-                {
-                    GameController.instance.ShowInteracao("Aperte 'E' para Abrir");
+                HandleOutlineObject(hit); // Processa o objeto destacado
+            }
+        }
+        else if (outlineObject != null) // Caso não haja colisão e um objeto estava destacado
+        {
+            GameController.instance.hideInteracao();
+            outlineObject.Deselect();
+            outlineObject = null;
+        }
+    }
+    void HandleOutlineObject(RaycastHit hit)
+    {
+        // Processa a interação com o objeto destacado de acordo com a tag
+        if (outlineObject.CompareTag("Porta"))
+        {
+            porta = hit.transform.GetComponent<Porta>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Abrir");
 
-                    porta = hit.transform.GetComponent<Porta>();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (porta.trancada)
+                {
+                    porta.DestrancarPortaRecepcao();
+                }
+                else
+                {
+                    porta.ToggleInteracao();
+                }
+                outlineObject.Deselect();
+            }
+        }
+        else if (outlineObject.CompareTag("Chave"))
+        {
+            chave = hit.transform.GetComponent<Chave>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
 
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if(porta.trancada == true)
-                        {
-                            porta.DestrancarPortaRecepcao();
-                            outlineObject.Deselect();
-                        }
-                        else
-                        {
-                            porta.ToggleInteracao();
-                            outlineObject.Deselect();
-                        }
-                    }
-                }
-                if (outlineObject.CompareTag("Chave"))
-                {
-                    chave = hit.transform.GetComponent<Chave>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        chave.toggle();
-                        outlineObject.Deselect();
-                    }
-                }
-                if (outlineObject.CompareTag("PagItem"))
-                {
-                    pagitem = hit.transform.GetComponent<PaginaItem>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        pagitem.toggle();
-                        outlineObject.Deselect();
-                    }
-                }
-                if (outlineObject.CompareTag("Gaveta"))
-                {
-                    gaveta = hit.transform.GetComponent<Gaveta>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Abrir/fechar");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                chave.toggle();
+                outlineObject.Deselect();
+            }
+        }
+        else if (outlineObject.CompareTag("PagItem"))
+        {
+            pagitem = hit.transform.GetComponent<PaginaItem>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
 
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        gaveta.toggleGaveta();
-                    }
-                }
-                if (outlineObject.CompareTag("Gravador"))
-                {
-                    gravadorItem = hit.transform.GetComponent<GravadorItem>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        gravadorItem.toggleGravador();
-                        outlineObject.Deselect();
-                    }
-                }
-                if (outlineObject.CompareTag("Interruptor"))
-                {
-                    Interruptor = hit.transform.GetComponent<interruptor>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Ligar/Desligar");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        Interruptor.toggleLigarLuz();
-                    }
-                }
-                if (outlineObject.CompareTag("Armario"))
-                {
-                    armario = hit.transform.GetComponent<Armario>();
-                    GameController.instance.ShowInteracao("Aperte 'E' para Entrar");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        armario.toggleEntrarArmario();
-                    }
-                }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                pagitem.toggle();
+                outlineObject.Deselect();
+            }
+        }
+        else if (outlineObject.CompareTag("Gaveta"))
+        {
+            gaveta = hit.transform.GetComponent<Gaveta>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Abrir/fechar");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                gaveta.toggleGaveta();
+            }
+        }
+        else if (outlineObject.CompareTag("Gravador"))
+        {
+            gravadorItem = hit.transform.GetComponent<GravadorItem>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Pegar");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                gravadorItem.toggleGravador();
+                outlineObject.Deselect();
+            }
+        }
+        else if (outlineObject.CompareTag("Interruptor"))
+        {
+            Interruptor = hit.transform.GetComponent<interruptor>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Ligar");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Interruptor.ToggleLigarLuz();
+            }
+        }
+        else if (outlineObject.CompareTag("Armario"))
+        {
+            armario = hit.transform.GetComponent<Armario>();
+            GameController.instance.ShowInteracao("Aperte 'E' para Entrar");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                armario.toggleEntrarArmario();
+            }
+        }
+        else if (outlineObject.CompareTag("LivroAA"))
+        {
+            livroAA = hit.transform.GetComponent<LivroAmaldicoado>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                livroAA.toggleLivro();
             }
         }
     }

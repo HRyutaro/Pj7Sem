@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public float staminaIncreaseRate = 5f;
     public bool CdCorrida;
     public Animator anim;
+    public AudioSource somOfegante;
 
     [Header("Hud")]
     public Slider stamina;
@@ -42,8 +43,11 @@ public class Player : MonoBehaviour
     public GameObject fantasmaRosto;
 
     public GameObject atackLuz;
+
     [Header("CheckPoints")]
     public Transform[] checkpoint;
+    public static int currentSpawn;
+
 
     void Start()
     {
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
         stamina.value = currentStamina;
         cortouBraco = false;
         vidaAtual = vidaMax;
+        currentSpawn = 0;
     }
 
 
@@ -132,6 +137,7 @@ public class Player : MonoBehaviour
 
         if(currentStamina <= 0)
         {
+            somOfegante.Play();
             imaStamina.color = Color.red;
             CdCorrida = true;
             postProcessing.ToggleChromaticAberration(true);
@@ -140,6 +146,7 @@ public class Player : MonoBehaviour
         {
             if(currentStamina >= (maxStamina / 2))
             {
+                somOfegante.Stop();
                 CdCorrida = false;
                 imaStamina.color = new Color(0, 125f / 255f, 164f / 255f);
                 postProcessing.ToggleChromaticAberration(false);
@@ -239,27 +246,39 @@ public class Player : MonoBehaviour
     }
     public void morrer()
     {
-        if(vidaAtual > 0)
+        Debug.Log("Função morrer chamada. Vida atual: " + vidaAtual);
+        if (vidaAtual >= 1)
         {
             vidaAtual -= 1;
+            Debug.Log("vidaAtual após decremento: " + vidaAtual);
             Debug.Log("vidaAtual " + vidaAtual);
             fantasmaRosto.SetActive(true);
             parado = true;
-            Invoke("ResetToCheckpoint", 0.5f);
+            Invoke("ResetToCheckpoint", 1f);
         }
         else
         {
+            Debug.Log("Resetando para o checkpoint: " + currentSpawn);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Debug.Log("Chamada do GameOver");
             GameController.instance.GameOver();
         }
     }
-
+    private IEnumerator voltarAndar()
+    {
+        yield return new WaitForSeconds(1f);
+        parado = false;
+    }
     private void ResetToCheckpoint()
     {
-        transform.position = checkpoint[0].position;
-        transform.rotation = checkpoint[0].rotation;
+        transform.position = checkpoint[currentSpawn].position;
+        transform.rotation = checkpoint[currentSpawn].rotation;
         fantasmaRosto.SetActive(false); // Esconde o fantasma, se necessário
-        parado = false; // Permite que o player se mova novamente
+        StartCoroutine("voltarAndar"); // Permite que o player se mova novamente
     }
+
+    
     void toggleVida()
     {
         if (Input.GetKeyDown(KeyCode.Q) && cortouBraco)

@@ -35,7 +35,8 @@ public class Gravador : MonoBehaviour
         GameController.instance.buttonPaginas.SetActive(true);
         GameController.instance.buttonGravadores.SetActive(true);
     }
-    public void NextGravador()
+    
+    /*public void NextGravador()
     {
         if (numeroPag == 1)
         {
@@ -189,4 +190,6 @@ public class Gravador : MonoBehaviour
             numeroPag = 1;
         }
     }
+    */
+
 }

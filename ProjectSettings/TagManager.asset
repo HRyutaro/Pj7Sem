@@ -16,6 +16,7 @@ TagManager:
   - Gravador
   - Interruptor
   - Armario
+  - LivroAA
   layers:
   - Default
   - TransparentFX

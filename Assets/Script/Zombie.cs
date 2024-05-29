@@ -65,45 +65,45 @@ public class Zombie : MonoBehaviour
         }
         else
         {
-            agent.isStopped = false; // Se a luz estiver inativa, permita que o agente se mova
-        }
-
-        if(vendoPlayer == true)
-        {
-            agent.stoppingDistance = 2.5f;
-            agent.destination = GameObject.FindWithTag("Player").transform.position;
-
-            // Verifica se o inimigo atingiu a distância de parada
-            if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+            if (vendoPlayer == true)
             {
-                timer += Time.fixedDeltaTime; // Incrementa o temporizador
-                if (timer >= detectionTime && !isFunctionActivated)
+                agent.stoppingDistance = 2.5f;
+                agent.destination = GameObject.FindWithTag("Player").transform.position;
+
+                // Verifica se o inimigo atingiu a distância de parada
+                if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
                 {
-                    agent.isStopped = true;
-                    playerControler.morrer();
-                    corpo.enabled = false;
-                    olhos.SetActive(false);
-                    isFunctionActivated = false;
-                    agent.destination = pontosDeDestino[numRandom].position;
-                    timer = 0.0f; // Marca que a função foi ativada
+                    timer += Time.fixedDeltaTime; // Incrementa o temporizador
+                    if (timer >= detectionTime && !isFunctionActivated)
+                    {
+                        agent.isStopped = true;
+                        playerControler.morrer();
+                        corpo.enabled = false;
+                        olhos.SetActive(false);
+                        isFunctionActivated = true;
+                        agent.destination = pontosDeDestino[numRandom].position;
+                        timer = 0.0f; // Marca que a função foi ativada
+                    }
+                }
+                else
+                {
+                    timer = 0.0f; // Reseta o temporizador se sair da distância
+                    agent.isStopped = false;
                 }
             }
             else
             {
-                timer = 0.0f; // Reseta o temporizador se sair da distância
+                agent.destination = pontosDeDestino[numRandom].position;
+                agent.stoppingDistance = 0;
+                timer = 0.0f;
+                isFunctionActivated = false;
+                corpo.enabled = true;
+                olhos.SetActive(true);
                 agent.isStopped = false;
             }
         }
-        else
-        {
-            agent.destination = pontosDeDestino[numRandom].position;
-            agent.stoppingDistance = 0;
-            timer = 0.0f;
-            isFunctionActivated = false;
-            corpo.enabled = true;
-            olhos.SetActive(true);
-            agent.isStopped = false;
-        }
+
+
     }
 
     IEnumerator som()
@@ -332,7 +332,6 @@ public class Zombie : MonoBehaviour
                 {
                     voltar = false;
                 }               
-                print(numRandom);
             }
         }
     }

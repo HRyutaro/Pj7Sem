@@ -9,35 +9,31 @@ public class Armario : MonoBehaviour
     public GameObject bodyPlayer;
 
     bool dentroArmario;
-
     void Start()
     {
-        
+        dentroArmario = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(dentroArmario)
+        if (dentroArmario)
         {
             mainCamera.SetActive(false);
             lockCamera.SetActive(true);
             bodyPlayer.SetActive(false);
             GameController.instance.textInfo.enabled = true;
-            GameController.instance.ShowInformacaoArmario("Aperte 'E' para Sair");
+            GameController.instance.ShowInformacaoArmario("Aperte 'Space' para Sair");
             GameController.instance.hideInteracao();
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 dentroArmario = false;
                 GameController.instance.ShowInformacaoArmario("");
                 GameController.instance.textInfo.enabled = false;
+                mainCamera.SetActive(true);
+                lockCamera.SetActive(false);
+                bodyPlayer.SetActive(true);
             }
-        }
-        else
-        {
-            mainCamera.SetActive(true);
-            lockCamera.SetActive(false);
-            bodyPlayer.SetActive(true);
         }
     }
 
