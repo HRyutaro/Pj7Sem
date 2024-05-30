@@ -101,6 +101,7 @@ public class Boss : MonoBehaviour
             MeshChave.enabled = true;
             colChave.enabled = true;
             timerHud.SetActive(false);
+            GameController.instance.textDica.text = "Procure o Chuvisco";
             Destroy(gameObject,1);
         }
     }

@@ -11,7 +11,7 @@ public class PaginaItem : MonoBehaviour
         if(numero == 1)
         {
             Inventario.temPag1 = true;
-            GameController.instance.textDica.text = "Procure Chuvisco\nAche mais pags sobre o ritual";
+            GameController.instance.textDica.text = "Procure Chuvisco\nAche mais paginas sobre o ritual";
             som.Play();
 
             Destroy(gameObject);
