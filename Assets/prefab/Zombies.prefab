@@ -185,8 +185,8 @@ MonoBehaviour:
   - {fileID: 7958460971435781417}
   - {fileID: 2318860936729149689}
   - {fileID: 4357224692054715839}
-  minCDGrunido: 3
-  maxCDGrunido: 7
+  minCDGrunido: 1
+  maxCDGrunido: 2
   pontosDeDestino:
   - {fileID: 0}
   - {fileID: 0}
@@ -222,7 +222,7 @@ AudioSource:
   MinDistance: 0.1
   MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -318,7 +318,7 @@ AudioSource:
   MinDistance: 0.1
   MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -414,7 +414,7 @@ AudioSource:
   MinDistance: 0.1
   MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -462,7 +462,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.25
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -510,7 +510,7 @@ AudioSource:
   MinDistance: 0.1
   MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
