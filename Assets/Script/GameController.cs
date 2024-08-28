@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     public GameObject opcoesScreen;
     public GameObject buttonPaginas;
     public GameObject buttonGravadores;
+    public GameObject buttonDiario;
     public GameObject buttonOpcoes;
     public GameObject buttonSair;
     public GameObject buttonControles;

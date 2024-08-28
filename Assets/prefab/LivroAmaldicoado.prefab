@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8576603231511918845}
   - component: {fileID: 3682197558243655959}
   - component: {fileID: 1904867878916570044}
+  - component: {fileID: 3188439694200032463}
   m_Layer: 0
   m_Name: LivroAmaldicoado
   m_TagString: LivroAA
@@ -141,5 +142,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fce46b836b193d14db0148ab632395a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3188439694200032463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273917869668887098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bbabf8fbf9b012458f610876eaa476c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

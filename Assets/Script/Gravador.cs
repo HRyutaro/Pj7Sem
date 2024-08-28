@@ -23,6 +23,7 @@ public class Gravador : MonoBehaviour
         pagGravadores.SetActive(true);
         GameController.instance.buttonPaginas.SetActive(false);
         GameController.instance.buttonGravadores.SetActive(false);
+        GameController.instance.buttonDiario.SetActive(false);
         numeroPag = 1;
         if (Inventario.temGravador1 == true)
         {
@@ -34,6 +35,7 @@ public class Gravador : MonoBehaviour
         pagGravadores.SetActive(false);
         GameController.instance.buttonPaginas.SetActive(true);
         GameController.instance.buttonGravadores.SetActive(true);
+        GameController.instance.buttonDiario.SetActive(true);
     }
     
     /*public void NextGravador()

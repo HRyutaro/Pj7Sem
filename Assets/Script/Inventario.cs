@@ -28,6 +28,9 @@ public class Inventario : MonoBehaviour
     public static bool temGravador5;
     public static bool temGravador6;
 
+    public static bool temDiario1;
+    public static bool temDiario2;
+
     static public bool invetarioOpen = false;
     public GameObject invetarioHud;
     public GameObject caderno;
@@ -49,11 +52,14 @@ public class Inventario : MonoBehaviour
         temGravador5 = false;
         temGravador6 = false;
 
+        temDiario1 = false;
+        temDiario2 = false;
     }
 
     void Update()
     {
         AbrirInventario();
+        pegoutodasAsPaginas();
     }
 
     void AttHudBateria()
@@ -87,6 +93,14 @@ public class Inventario : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 caderno.SetActive(false);
             }
+        }
+    }
+
+    void pegoutodasAsPaginas()
+    {
+        if(temPag1 && temPag2 && temPag3 && temPag4 && temPag5 && temPag6)
+        {
+            GameController.instance.ShowInformacao("Peguei todas as Paginas, acho que agora posso acabar com o ritual");
         }
     }
 }

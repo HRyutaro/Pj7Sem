@@ -41,5 +41,18 @@ public class PaginaItem : MonoBehaviour
             Inventario.temPag6 = true;
             Destroy(gameObject);
         }
+        else if (numero == 7)
+        {
+            Inventario.temDiario1 = true;
+            GameController.instance.ShowInformacao("Esse livro tem uma pagina do diario do legista");
+            Destroy(gameObject);
+        }
+        else if (numero == 8)
+        {
+            Inventario.temDiario2 = true;
+            GameController.instance.ShowInformacao("Zangado seu maldito");
+            Destroy(gameObject);
+        }
     }
+
 }

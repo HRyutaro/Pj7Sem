@@ -198,7 +198,7 @@ MonoBehaviour:
   vendoPlayer: 0
   corpo: {fileID: 3718308978311114349}
   olhos: {fileID: 2456592512863102984}
-  detectionTime: 1.5
+  detectionTime: 1
 --- !u!82 &6249060442096583879
 AudioSource:
   m_ObjectHideFlags: 0
