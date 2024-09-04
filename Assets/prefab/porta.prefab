@@ -261,11 +261,11 @@ GameObject:
   - component: {fileID: 689205499872269528}
   - component: {fileID: 2438828065647951076}
   - component: {fileID: 2199019687243418796}
-  - component: {fileID: 689205499872269529}
   - component: {fileID: 689205499872269532}
   - component: {fileID: 689205499872269535}
   - component: {fileID: 689205499872269534}
   - component: {fileID: 6464561757929222449}
+  - component: {fileID: 7648170993392708901}
   m_Layer: 0
   m_Name: 01_low
   m_TagString: Porta
@@ -338,20 +338,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &689205499872269529
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6492502798925651253}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2596774734982952093, guid: 5518466ac73c3b94e8f1765c6c455927, type: 3}
 --- !u!114 &689205499872269532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +383,8 @@ MonoBehaviour:
   anim: {fileID: 1105201466111570587}
   trancada: 0
   imperrada: 0
+  amaldicoada: 0
+  col: {fileID: 7648170993392708901}
   chave: {fileID: 0}
   textoChaveIncorreta: "Voc\xEA precisa da chave correta para abrir esta porta."
   som: {fileID: 7904606330518460626}
@@ -416,3 +404,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.018000001, y: -0.39200002, z: 0.9760001}
   m_TimeToStationary: 0.5
+--- !u!65 &7648170993392708901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6492502798925651253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.042302933, y: 0.8030787, z: 1.9387605}
+  m_Center: {x: 0.018128488, y: -0.39169106, z: 0.97562027}

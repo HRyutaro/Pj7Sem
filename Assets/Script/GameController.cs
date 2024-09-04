@@ -37,6 +37,14 @@ public class GameController : MonoBehaviour
     public float tempoShowInfo = 3;
 
     public bool Cheat;
+
+    public GameObject Dialogo;
+    public GameObject Dialogo1;
+    public Text textDialogo;
+
+    public GameObject panelCode;
+    public bool openPanelCode;
+
     void Start()
     {
         instance = this;
@@ -79,6 +87,30 @@ public class GameController : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+    public void OpenPanelCode()
+    {
+        openPanelCode = !openPanelCode;
+        if(openPanelCode)
+        {
+            panelCode.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Player.parado = true;
+        }
+        else
+        {
+            panelCode.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Player.parado = false;
+        }
+    }
+    public void ShowDialogo(string x)
+    {
+        Dialogo.SetActive(true);
+        Dialogo1.SetActive(true);
+        textDialogo.text = x;
     }
     public void ShowInformacao(string x)
     {

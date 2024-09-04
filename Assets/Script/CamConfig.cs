@@ -35,6 +35,7 @@ public class CamConfig : MonoBehaviour
     interruptor Interruptor;
     Armario armario;
     LivroAmaldicoado livroAA;
+    Cranios cranio;
 
     void Start()
     {
@@ -194,6 +195,7 @@ public class CamConfig : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 armario.toggleEntrarArmario();
+                outlineObject.Deselect();
             }
         }
         else if (outlineObject.CompareTag("LivroAA"))
@@ -204,6 +206,129 @@ public class CamConfig : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 livroAA.toggleLivro();
+                outlineObject.Deselect();
+            }
+        }
+        else if (outlineObject.CompareTag("CranioChuvisco"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Chuvisco - Aí como eu fui descuidado... Tentei dar uma de herói e acabei realmente sendo pego," +
+                "devia ter ficado escondido, que droga... Mas pelo menos espero que aquele coelho que encontrei na sala de corpos lá em cima," +
+                "tenha conseguido fugir.");
+            }
+        }
+        else if (outlineObject.CompareTag("CranioBen"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Ben tornado - Eu morri?? Caramba, os ditados dizem que a curiosidade matou o gato," +
+                    " mas parece que ela matou foi o coelho mesmo! Hahaha sem piadas agora," +
+                    " bem que aqueles irmãos no armazém me avisaram sobre o perigo de vir até a sala de corpos...");
+            }
+        }
+        else if (outlineObject.CompareTag("CranioBranca"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Branca de neve - Será que o soneca tá bem? Aquele carneiro esquentado e burro! Nós estávamos escondidos" +
+                    " só esperando algum resgate e ele teve que perder a paciência e ir em direção à sala do legista eu nem sei exatamente como morri... " +
+                    "Fiquei com tanto medo de seguir ele e acabar sendo pega, mas acabei presa aqui, longe dele...");
+            }
+        }
+        else if (outlineObject.CompareTag("CranioSoneca"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Soneca - DROGA! Se não fosse por aqueles espectros," +
+                    " eu teria acabado com a raça do zangado, e o Pula Cerca, que péssimo dono ele foi, contratando um carneiro que certamente traria problemas," +
+                    " e ainda não teve nem coragem de tentar enfrentar! Só ficou se escondendo atrás daqueles arquivos dele, que merda! Como eu fui emocionado também," +
+                    " deixei a Branca de Neve sozinha só por conta da minha raiva... Que belo irmão eu fui...");
+            }
+        }
+        else if (outlineObject.CompareTag("CranioCerca"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Pula Cerca - Anos e Anos de trabalho duro jogados no ralo, que tristeza..." +
+                    " E pensar que quem acabou com tudo foi o carneiro mais caro contratado!!! " +
+                    "Zangado Montauciel, eu te odeio com todas as minhas forças! Deveria ter tentado sair pela recepção quando comecei a ouvir gritaria," +
+                    " mas pensei que fosse algum familiar na sala de velório, que tolice...");
+            }
+        }
+        else if (outlineObject.CompareTag("CranioDolly"))
+        {
+            cranio = hit.transform.GetComponent<Cranios>();
+            GameController.instance.ShowInteracao("Aperte 'E' para destruir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                outlineObject.Deselect();
+                cranio.toggleInteracao();
+                Debug.Log("destruiu " + puzzlePorta.destruiuCranios);
+                Player.parado = true;
+                GameController.instance.ShowDialogo("Dolly a recepcionista crânio - ah zangado... Por que?" +
+                    " Você não conseguiu nem olhar nos meus olhos enquanto fazia aquilo..." +
+                    " Pensei que tivéssemos uma conexão, desde o seu primeiro dia aqui me cortejando," +
+                    " eu adorava nossas conversas, você era tão inteligente, será que você realmente gostava de mim ou só estava me manipulando pra conseguir acesso às escadas?" +
+                    " Talvez se eu contasse antes que estava gostando de você, as coisas poderiam ter sido diferentes..." +
+                    " Enfim, acho que nunca vou entender o que realmente se passa na sua cabeça");
+            }
+        }
+        else if (outlineObject.CompareTag("Cofre"))
+        {
+            GameController.instance.ShowInteracao("Aperte 'E' interagir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameController.instance.OpenPanelCode();
+            }
+        }
+        else if (outlineObject.CompareTag("Quadro"))
+        {
+            GameController.instance.ShowInteracao("Aperte 'E' interagir");
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                // Move o objeto para cima
+                hit.transform.position += Vector3.up * 0.5f; // Mova o quadro 0.1 unidades para cima
+                outlineObject.Deselect(); // Desseleciona o objeto após a interação
+                hit.transform.tag = "QuadroMovido";
             }
         }
     }

@@ -8,6 +8,9 @@ public class Porta : MonoBehaviour
     bool interagir;
     public bool trancada = true;
     public bool imperrada = false;
+    public bool amaldicoada = false;
+    public BoxCollider col;
+
     public GameObject chave;
     public string textoChaveIncorreta = "Preciso da chave correta para abrir esta porta.";
     public AudioSource som;
@@ -20,34 +23,54 @@ public class Porta : MonoBehaviour
 
     public void ToggleInteracao()
     {
-        if(imperrada== false)
+        if(amaldicoada == false)
         {
-            if (trancada == false)
+            if (imperrada == false)
             {
-                interagir = !interagir;
-                if (interagir == true)
+                if (trancada == false)
                 {
-                    anim.SetBool("fechada", false);
-                    anim.SetBool("aberta", true);
-                    StartCoroutine(StopPlayer());
+                    interagir = !interagir;
+                    if (interagir == true)
+                    {
+                        anim.SetBool("fechada", false);
+                        anim.SetBool("aberta", true);
+                        StartCoroutine(StopPlayer());
+                        col.isTrigger = true;
+                    }
+                    else
+                    {
+                        anim.SetBool("fechada", true);
+                        anim.SetBool("aberta", false);
+                        StartCoroutine(StopPlayer());
+                        col.isTrigger = false;
+                    }
                 }
-                else
+                else if (trancada == true)
                 {
-                    anim.SetBool("fechada", true);
-                    anim.SetBool("aberta", false);
-                    StartCoroutine(StopPlayer());
+                    GameController.instance.ShowInformacao(textoChaveIncorreta);
                 }
             }
-            else if(trancada == true)
+            else
             {
                 GameController.instance.ShowInformacao(textoChaveIncorreta);
+                som.Play();
             }
         }
         else
         {
-            GameController.instance.ShowInformacao(textoChaveIncorreta);
-            som.Play();
+            if(puzzlePorta.instance.craniosAtivados == false)
+            {
+                puzzlePorta.instance.AtivarTodosCranios();
+                GameController.instance.ShowInformacao("Parece que um ritual esta trancando essa porta");
+                GameController.instance.textDica.text = "Procure Chuvisco\nAche mais paginas sobre o ritual\nDestrua os cranios para acabar com o ritual da porta";
+            }
+            else
+            {
+                GameController.instance.ShowInformacao("Preciso acabar com o ritual dessa porta para poder passar");
+            }
+
         }
+
     }
     
      IEnumerator StopPlayer()

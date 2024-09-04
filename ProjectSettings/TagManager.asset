@@ -17,6 +17,15 @@ TagManager:
   - Interruptor
   - Armario
   - LivroAA
+  - CranioChuvisco
+  - CranioBen
+  - CranioBranca
+  - CranioSoneca
+  - CranioCerca
+  - CranioDolly
+  - Cofre
+  - Quadro
+  - QuadroMovido
   layers:
   - Default
   - TransparentFX
